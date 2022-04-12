@@ -1,0 +1,21 @@
+name: Build App Project
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Compile Backend
+        run: echo building backend
+
+      - name: Compile Frontend
+        run: echo building Frontend
+      
+      - name: Deploy to Heroku
+        run: echo deploying to heroku
+      
+      - name: Run Pytest
+        run: echo running pytest endpoint Test
+      
+      - name: Run Selenium E2E Test
+        run: echo running selenium E2E tests
