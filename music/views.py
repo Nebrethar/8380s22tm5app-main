@@ -65,6 +65,9 @@ def post_twitter(request):
     #URI = {}
     return redirect(client.get_authorization_url(signin_with_twitter=True))
 
+def post_facebook(request):
+    return redirect("https://www.facebook.com/v13.0/dialog/oauth?client_id=" + os.getenv('fb_client_id') + "&redirect_uri=https%3A%2F%2F8380s22tm5app.com%2F&state={\"{st=state123abc,ds=123456789}\"})")
+
 def random_song(request):
     random_seed = makeid()
     random_offset = random.randint(0, 1000)

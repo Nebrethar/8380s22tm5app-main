@@ -10,7 +10,8 @@ router.register(r'groups', views.GroupViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),\
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('facebook-post/', views.post_facebook),
     path('twitter-post/', views.post_twitter),
     path('random-song/', views.random_song),
     path('weather-song/<int:zipcode>/', views.weather_song),
