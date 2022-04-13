@@ -1,15 +1,16 @@
 from django.urls import include, path, re_path
 from rest_framework import routers
+from django.views.generic import TemplateView
 from music import views
-
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+from django.urls import re_path
+from django.conf.urls.static import static
+from pathlib import Path
+import os
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
+    re_path(r'^$', TemplateView.as_view(template_name='index.html')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('facebook-post/', views.post_facebook),
     path('twitter-post/', views.post_twitter),
