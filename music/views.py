@@ -52,7 +52,6 @@ def makeid():
     # i += 1
     return result
 
-
 def get_token_spotify(auth_url, client_id, client_secret):
     token_req_payload = {'grant_type': 'client_credentials'}
 
@@ -73,69 +72,87 @@ def post_twitter(request):
 def post_facebook(request):
     return redirect("https://www.facebook.com/v13.0/dialog/oauth?client_id=" + os.getenv('fb_client_id') + "&redirect_uri=https%3A%2F%2F8380s22tm5app.com%2F&state={\"{st=state123abc,ds=123456789}\"})")
 
+@permission_classes((IsAuthenticated, ))
 def random_song(request):
-    random_seed = makeid()
-    random_offset = random.randint(0, 1000)
+    hd = str(request.headers)
+    if "Authorization" in hd:
+        chkval = hd.split("\'Authorization\':", 1)[1]
+    else:
+        chkval = " "
+    if "Bearer" in chkval:
+        random_seed = makeid()
+        random_offset = random.randint(0, 1000)
 
-    spotify_token_raw = get_token_spotify('https://accounts.spotify.com/api/token', os.getenv('spotify_client_id'),
-                                          os.getenv('spotify_client_secret'))
-    # print(json.loads(spotify_token_raw.text)["access_token"])
-    spotify_token = json.loads(spotify_token_raw.text)["access_token"]
-    query = "https://api.spotify.com/v1/search?type=track&limit=1&offset=" + str(random_offset) + "&q=" + str(
-        random_seed)
-    uriQ = requests.get(query, headers={'Authorization': 'Bearer ' + spotify_token})
-    URI = uriQ.json()
-    request.session['last_random_track'] = URI['tracks']['items'][0]['name']
-    request.session['last_random_artist'] = URI['tracks']['items'][0]['artists'][0]['name']
-    request.session['last_random_URL'] = URI['tracks']['items'][0]['external_urls']['spotify']
-    return JsonResponse(URI)
-
+        spotify_token_raw = get_token_spotify('https://accounts.spotify.com/api/token', os.getenv('spotify_client_id'),
+                                            os.getenv('spotify_client_secret'))
+        # print(json.loads(spotify_token_raw.text)["access_token"])
+        spotify_token = json.loads(spotify_token_raw.text)["access_token"]
+        query = "https://api.spotify.com/v1/search?type=track&limit=1&offset=" + str(random_offset) + "&q=" + str(
+            random_seed)
+        uriQ = requests.get(query, headers={'Authorization': 'Bearer ' + spotify_token})
+        URI = uriQ.json()
+        request.session['last_random_track'] = URI['tracks']['items'][0]['name']
+        request.session['last_random_artist'] = URI['tracks']['items'][0]['artists'][0]['name']
+        request.session['last_random_URL'] = URI['tracks']['items'][0]['external_urls']['spotify']
+        response = JsonResponse(URI)
+    else:
+        response = JsonResponse({"LOGIN": "You must be logged in to use this feature"})
+    return response
 
 def weather_song(request, zipcode):
-    weather = requests.get(
-        "http://api.openweathermap.org/data/2.5/forecast?zip=" + str(zipcode) + "&appid=" + os.getenv('weather_token'))
+    hd = str(request.headers)
+    if "Authorization" in hd:
+        chkval = hd.split("\'Authorization\':", 1)[1]
+    else:
+        chkval = " "
+    if "Bearer" in chkval:
+        weather = requests.get(
+            "http://api.openweathermap.org/data/2.5/forecast?zip=" + str(zipcode) + "&appid=" + os.getenv('weather_token'))
 
-    weatherStatus = weather.json()['list'][0]['weather'][0]['main']
+        weatherStatus = weather.json()['list'][0]['weather'][0]['main']
 
-    genre = "soul"
-    #print(weatherStatus)
-    if weatherStatus == "Clear":
-        genre = "classical"
-    elif weatherStatus == "Thunderstorm":
-        genre = "nu metal"
-    elif weatherStatus == "Drizzle":
-        genre = "lo-fi chill"
-    elif weatherStatus == "Rain":
-        genre = "indiecoustica"
-    elif weatherStatus == "Snow":
-        genre = "indie folk"
-    elif weatherStatus == "Clouds":
-        genre = "britpop"
-    elif weatherStatus == "Mist":
-        genre = "pop rock"
+        genre = "soul"
+        #print(weatherStatus)
+        if weatherStatus == "Clear":
+            genre = "classical"
+        elif weatherStatus == "Thunderstorm":
+            genre = "nu metal"
+        elif weatherStatus == "Drizzle":
+            genre = "lo-fi chill"
+        elif weatherStatus == "Rain":
+            genre = "indiecoustica"
+        elif weatherStatus == "Snow":
+            genre = "indie folk"
+        elif weatherStatus == "Clouds":
+            genre = "britpop"
+        elif weatherStatus == "Mist":
+            genre = "pop rock"
 
-    random_seed = makeid()
-    random_offset = random.randint(0, 1000)
+        random_seed = makeid()
+        random_offset = random.randint(0, 1000)
 
-    spotify_token_raw = get_token_spotify('https://accounts.spotify.com/api/token', os.getenv('spotify_client_id'),
-                                          os.getenv('spotify_client_secret'))
-    # print(json.loads(spotify_token_raw.text)["access_token"])
-    spotify_token = json.loads(spotify_token_raw.text)["access_token"]
-    query = "https://api.spotify.com/v1/search?type=track&limit=1&offset=" + str(
-        random_offset) + "&q=genre:\"" + "lo-fi chill" + "\""
-    uriQ = requests.get(query, headers={'Authorization': 'Bearer ' + spotify_token})
-    URI = uriQ.json()
-    resp = {}
-    status = {
-        "weather": weatherStatus,
-        "genre": genre
-    }
-    resp.update(status)
-    resp.update(URI)
-    request.session['last_weather_track'] = URI['tracks']['items'][0]['name']
-    request.session['last_weather_artist'] = URI['tracks']['items'][0]['artists'][0]['name']
-    request.session['last_weather_URL'] = URI['tracks']['items'][0]['external_urls']['spotify']
-    return JsonResponse(resp)
+        spotify_token_raw = get_token_spotify('https://accounts.spotify.com/api/token', os.getenv('spotify_client_id'),
+                                            os.getenv('spotify_client_secret'))
+        # print(json.loads(spotify_token_raw.text)["access_token"])
+        spotify_token = json.loads(spotify_token_raw.text)["access_token"]
+        query = "https://api.spotify.com/v1/search?type=track&limit=1&offset=" + str(
+            random_offset) + "&q=genre:\"" + "lo-fi chill" + "\""
+        uriQ = requests.get(query, headers={'Authorization': 'Bearer ' + spotify_token})
+        URI = uriQ.json()
+        resp = {}
+        status = {
+            "weather": weatherStatus,
+            "genre": genre
+        }
+        resp.update(status)
+        resp.update(URI)
+        request.session['last_weather_track'] = URI['tracks']['items'][0]['name']
+        request.session['last_weather_artist'] = URI['tracks']['items'][0]['artists'][0]['name']
+        request.session['last_weather_URL'] = URI['tracks']['items'][0]['external_urls']['spotify']
+        response = JsonResponse(resp)
+    else:
+        response = JsonResponse({"LOGIN": "You must be logged in to use this feature"})
+    return response
 
 
 class UserViewSet(viewsets.ModelViewSet):
