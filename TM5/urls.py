@@ -1,6 +1,15 @@
 from django.urls import include, path, re_path
 from rest_framework import routers
 from music import views
+from django.urls import re_path
+from django.conf.urls.static import static
+from pathlib import Path
+import os
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -16,4 +25,7 @@ urlpatterns = [
     path('random-song/', views.random_song),
     path('weather-song/<int:zipcode>/', views.weather_song),
     path('signup/', views.RegisterView.as_view(), name='auth_register'),
+    path('auth/', views.authentication, name='auth'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

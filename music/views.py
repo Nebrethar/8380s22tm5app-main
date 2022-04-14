@@ -1,9 +1,14 @@
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, generics
 from rest_framework import permissions
 from .serializers import UserSerializer, GroupSerializer, RegisterSerializer
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework import authentication
+from rest_framework import exceptions
 import requests
 import json
 import os
@@ -155,3 +160,13 @@ class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
+
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def authentication(request, format=None):
+    content = {
+        'user': str(request.user),  # `django.contrib.auth.User` instance.
+        'auth': str(request.auth),  # None
+    }
+    return Response(content)
