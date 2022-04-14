@@ -57,7 +57,14 @@
                 </div>
               </div>
 
-              <button type="submit" ref="form" @click.prevent="login" class="btn btn-primary bg-success">Login</button>
+              <div class="row">
+                <div class="col-sm">
+                  <router-link to="/Signup"  class="btn btn-secondary" ref="Signup">Sign Up</router-link>
+                </div>
+                <div class="col-sm">
+                  <button type="submit" ref="form" @click.prevent="login" class="btn btn-success">Login</button>
+                </div>
+              </div>
 
             </div>
           </div>
@@ -133,5 +140,6 @@ form {
   justify-content: center;
   flex-direction: column;
 }
+
 
 </style>
