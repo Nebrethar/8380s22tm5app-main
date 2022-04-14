@@ -12,6 +12,7 @@
             <router-link to="/user-preferences" class="nav-link">Preferences</router-link>
             <router-link to="/playlists" class="nav-link">Playlists</router-link>
             <router-link to="/About" class="nav-item nav-link">About</router-link>
+            <router-link to="/Auth" class="nav-item nav-link ml-auto">Login</router-link>
         </div>
     </div>
 </nav>

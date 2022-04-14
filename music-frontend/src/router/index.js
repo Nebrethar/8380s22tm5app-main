@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '@/components/DashboardHome.vue'
 import PreferencesView from '../views/PreferencesView.vue'
 import PlaylistView from '../views/PlaylistView.vue'
+import Auth from '@/components/Auth.vue'
 
 const routes = [
   {
@@ -26,6 +27,11 @@ const routes = [
     path: '/playlists',
     name: 'playlists',
     component: PlaylistView
+  },
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: Auth
   },
 ]
 
