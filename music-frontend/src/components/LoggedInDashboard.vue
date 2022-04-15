@@ -6,12 +6,12 @@
                 <h1><b>Welcome User! </b><a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title"><img :src="require('@/assets/sun-icon.png')" style="height: 10rem; width: 10rem;">&nbsp;&nbsp;75&#176;</h2>
+                        <h2 class="card-title"><img :src="require('@/static/assets/sun-icon.png')" style="height: 10rem; width: 10rem;">&nbsp;&nbsp;75&#176;</h2>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><img :src="require('@/assets/music-icon.png')" style="height: 2rem; width: 2rem;"> Now Playing: Enemy x Imagine Dragons</h5>
+                        <h5 class="card-title"><img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;"> Now Playing: Enemy x Imagine Dragons</h5>
                         This weather calls for a sunny playlist!
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                         Your Playlists
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><img :src="require('@/assets/heart-fill.svg')" style="height: 1rem; width: 1rem;"> <a href="#" class="card-link">All Recommendations</a></li>
+                        <li class="list-group-item"><img :src="require('@/static/assets/heart-fill.svg')" style="height: 1rem; width: 1rem;"> <a href="#" class="card-link">All Recommendations</a></li>
                     </ul>
                 </div>
                 <div class="card">

@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import DashboardHome from '@/components/DashboardHome.vue'
+import Base from '@/components/Base.vue'
+import NotFoundComponent from '@/components/NotFoundComponent.vue'
 import LoggedInDashboard from '@/components/LoggedInDashboard.vue'
 import PreferencesView from '../views/PreferencesView.vue'
 import PlaylistView from '../views/PlaylistView.vue'
@@ -7,6 +9,11 @@ import Auth from '@/components/Auth.vue'
 import Signup from '@/components/Signup.vue'
 
 const routes = [
+  {
+    path: '/Base',
+    name: 'base',
+    component: Base
+  },
   {
     path: '/',
     name: 'home',

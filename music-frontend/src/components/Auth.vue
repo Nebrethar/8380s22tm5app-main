@@ -5,7 +5,7 @@
       <div class="col-12 col-sm-6 col-md-4 col-lg-4">
         <div class="card mx-auto shadow">
           <div class="card-body">
-            <div class="card-title"><span>Login</span></div>
+            <div class="card-title text-black" style="text-align:left;font-weight:bold;"><span>Login</span></div>
             <div
                 v-if="showMsg === 'error'"
                 close-icon="mdi-close-circle"
