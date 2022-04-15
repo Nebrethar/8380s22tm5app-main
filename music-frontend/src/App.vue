@@ -16,6 +16,11 @@
         </div>
     </div>
 </nav>
+  <div class="footer">
+    <p>Share&nbsp; 
+      <img :src="require('@/assets/twitter.svg')" style="height: 1rem; width: 1rem;">&nbsp;
+      <img :src="require('@/assets/facebook.svg')" style="height: 1rem; width: 1rem;"></p>
+  </div>
  </div>
   <router-view/>
 </template>
@@ -43,5 +48,15 @@
   color: whitesmoke;
   background: green;
   border-radius: .5rem;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  text-align: right;
 }
 </style>

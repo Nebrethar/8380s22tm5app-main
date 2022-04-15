@@ -1,10 +1,8 @@
 <template>
     <div>
-        <!-- Welcome Text -->
-        
         <!-- Welcome Features -->
         <div class="row align-items-center justify-content-center">
-            <div class="card-group" style="width:1250px">
+            <div class="card-group" style="width:1250px; height:200px;">
                 <h1><b>Welcome User! </b><a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>
                 <div class="card">
                     <div class="card-body">
