@@ -13,9 +13,8 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img :src="require('@/assets/music-icon.png')" class="mx-auto d-block" style="height: 15rem; width: 15rem;"> 
                     <div class="card-body">
-                        <h2 class="card-title">Now Playing: Enemy x Imagine Dragons</h2>
+                        <h3 class="card-title"><img :src="require('@/assets/music-icon.png')" style="height: 3rem; width: 3rem;"> Now Playing: Enemy x Imagine Dragons</h3>
                         The weather can help to recommend some music.
                         Login to use this feature for free!
                     </div>
