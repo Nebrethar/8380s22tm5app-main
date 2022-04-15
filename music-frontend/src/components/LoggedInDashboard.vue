@@ -5,10 +5,10 @@
         <!-- Welcome Features -->
         <div class="row align-items-center justify-content-center">
             <div class="card-group" style="width:1250px">
-                <h1><b>Welcome User! </b><a @click="viewCustomers" class="btn btn-dark">User Preferences</a></h1>
+                <h1><b>Welcome User! </b><a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title"><img :src="require('@/assets/sun-icon.png')" style="height: 10rem; width: 10rem;">  75&#176;</h2>
+                        <h2 class="card-title"><img :src="require('@/assets/sun-icon.png')" style="height: 10rem; width: 10rem;">&nbsp;&nbsp;75&#176;</h2>
                     </div>
                 </div>
                 <div class="card">
