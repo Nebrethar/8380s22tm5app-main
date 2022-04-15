@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '@/components/DashboardHome.vue'
+import DashboardHome from '@/components/DashboardHome.vue'
+import LoggedInDashboard from '@/components/LoggedInDashboard.vue'
 import PreferencesView from '../views/PreferencesView.vue'
 import PlaylistView from '../views/PlaylistView.vue'
 import Auth from '@/components/Auth.vue'
@@ -9,7 +10,12 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: DashboardHome
+  },
+  {
+    path: '/home',
+    name: 'loggedinhome',
+    component: LoggedInDashboard
   },
   {
     path: '/about',
