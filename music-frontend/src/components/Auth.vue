@@ -57,14 +57,8 @@
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-sm">
-                  <router-link to="/Signup"  class="btn btn-secondary" ref="Signup">Sign Up</router-link>
-                </div>
-                <div class="col-sm">
-                  <button type="submit" ref="form" @click.prevent="login" class="btn btn-success">Login</button>
-                </div>
-              </div>
+              <router-link to="/Signup"  class="btn btn-secondary mx-2" ref="Signup">Sign Up</router-link>
+              <button type="submit" ref="form" @click.prevent="login" class="btn btn-primary mx-2">Login</button>
 
             </div>
           </div>
