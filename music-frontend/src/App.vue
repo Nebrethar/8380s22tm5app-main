@@ -1,4 +1,5 @@
 <template>
+<html>
 <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -26,11 +27,18 @@
             <div class="navbar-nav mr-auto">
                 <router-link to="/" class="nav-item nav-link">Home</router-link>
                 <router-link to="/user-preferences" class="nav-link">Preferences</router-link>
-                <router-link to="/playlists" class="nav-link">Playlists</router-link>
+                <router-link to="/playlists" class="nav-link">History</router-link>
                 <router-link to="/About" class="nav-item nav-link">About</router-link>
-                <router-link to="/Auth" class="nav-item nav-link ml-auto">Login</router-link>
             </div>
         </div>
+        <!--
+        <div v-if="isAuthenticates">
+        </div>
+        <div v-else>
+        </div>
+        -->
+          <router-link style="float:right" to="/Auth" class="nav-item nav-link ml-auto">Login</router-link>
+          <router-link @click="logout()" style="float:right" to="/Authout" class="nav-item nav-link ml-auto">Logout</router-link>
       </nav>
     </div>
     <router-view/>
@@ -41,6 +49,7 @@
         <img :src="require('@/static/assets/facebook.svg')" style="height: 1rem; width: 1rem;"></p>
     </strong></div>
 </body>
+</html>
 </template>
 
 <style>
@@ -78,3 +87,18 @@
   text-align: right;
 }
 </style>
+
+<script>
+export default {
+  name: 'app',
+  methods: {
+    logout() {
+      console.log(localStorage.getItem('isauthenticates'));
+      localStorage.setItem('token', null);
+      localStorage.setItem('isAuthenticates', JSON.stringify(false));
+      localStorage.setItem('log_user', null);
+      window.location = "/"
+    }
+  }
+}
+</script>

@@ -48,6 +48,11 @@ const routes = [
     component: Auth
   },
   {
+    path: '/authout',
+    name: 'Authout',
+    component: DashboardHome
+  },
+  {
     path: '/signup',
     name: 'Signup',
     component: Signup

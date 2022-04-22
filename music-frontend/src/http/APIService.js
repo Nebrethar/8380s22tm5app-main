@@ -8,11 +8,9 @@ export class APIService {
 
     authenticateLogin(credentials) {
         const url = `${API_URL}api/token/`;
-        return axios.post(url, {
-            auth: {
-              username: credentials.username,
-              password: credentials.password
-            }
-          });
+        const logFormData = new FormData();
+        logFormData.append("username", credentials.username);
+        logFormData.append("password", credentials.password);
+        return axios.post(url,logFormData);
     }
 }

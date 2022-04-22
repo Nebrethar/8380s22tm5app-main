@@ -103,7 +103,7 @@ export default {
       if (this.$refs.form) {
         this.loading = true;
         apiService.authenticateLogin(this.credentials).then((res)=>{
-          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('token', res.data.access);
           localStorage.setItem('isAuthenticates', JSON.stringify(true));
           localStorage.setItem('log_user', JSON.stringify(this.credentials.username));
           //router.push("/");
