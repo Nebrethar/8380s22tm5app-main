@@ -33,9 +33,9 @@
                        Recommendations
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="#" class="card-link">Weather</a></li>
-                        <li class="list-group-item"><a href="#" class="card-link">Genre</a></li>
-                        <li class="list-group-item"><a href="#" class="card-link">Random</a></li>
+                        <li class="list-group-item"><a href="#/weather" class="card-link">Weather</a></li>
+                        <li class="list-group-item"><a href="#/genre" class="card-link">Genre</a></li>
+                        <li class="list-group-item"><a href="#/random" class="card-link">Random</a></li>
                         <li class="list-group-item"><a href="#" class="card-link">Music Videos</a></li>
                     </ul>
                 </div>

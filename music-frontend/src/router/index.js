@@ -7,6 +7,9 @@ import PreferencesView from '../views/PreferencesView.vue'
 import PlaylistView from '../views/PlaylistView.vue'
 import Auth from '@/components/Auth.vue'
 import Signup from '@/components/Signup.vue'
+import Random from "@/components/Random"
+import Weather from "@/components/Weather"
+import Genre from "@/components/Genre"
 
 const routes = [
   {
@@ -56,6 +59,21 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup
+  },
+  {
+    path: '/random',
+    name: 'Random',
+    component: Random
+  },
+  {
+    path: '/weather',
+    name: 'Weather',
+    component: Weather
+  },
+  {
+    path: '/genre',
+    name: 'Genre',
+    component: Genre
   },
 ]
 
