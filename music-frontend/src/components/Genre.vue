@@ -2,7 +2,7 @@
   <div>
     <!-- Welcome Features -->
     <div class="row align-items-center justify-content-center">
-      <h1><b>Welcome User! </b><a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>
+      <h1><b>Welcome {{ validUserName }}! </b><a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>
     </div>
     <br>
     <div class="row align-items-center justify-content-center">
@@ -38,7 +38,22 @@
 
 <script>
 export default {
-  name: "Genre"
+  name: "Genre",
+  data: () => ({
+    validUserName: "Guest",
+    recommendation: [],
+  }),
+  mounted() {
+    this.getRecommendation();
+  },
+  methods: {
+    getRecommendation() {
+      if (localStorage.getItem("isAuthenticates")
+          && JSON.parse(localStorage.getItem("isAuthenticates")) === true) {
+        this.validUserName = JSON.parse(localStorage.getItem("log_user"));
+      }
+    },
+  }
 }
 </script>
 
