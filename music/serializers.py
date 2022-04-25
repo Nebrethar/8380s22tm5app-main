@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from .models import PlaylistModel
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
@@ -51,3 +52,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class PlaylistSerializer(serializers.Serializer):
+    class Meta:
+        model = PlaylistModel
+    def create(self, validated_data):
+        """
+        Create and return a new `Snippet` instance, given the validated data.
+        """
+        return Snippet.objects.create(**validated_data)

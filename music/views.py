@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework import authentication
 from rest_framework import exceptions
+from django.core import serializers
 import requests
 import json
 import os
@@ -18,6 +19,16 @@ import string
 import math
 import time
 import tweepy
+import urllib.parse
+from pathlib import Path
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+import google_auth_oauthlib.flow
+import googleapiclient.discovery
+import googleapiclient.errors
+from django.conf import settings
+from .models import PlaylistModel
+from youtubesearchpython import *
 
 from rest_framework.permissions import AllowAny
 
@@ -31,6 +42,19 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import webbrowser
 """
+flow = None
+scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
+
+def get_playlists(request):
+    allvals = serializers.serialize("json", PlaylistModel.objects.all())
+    print(allvals)
+    return JsonResponse(json.loads(allvals), safe=False)
+
+def youtube_get(request, artist, song):
+    customSearch = CustomSearch(artist + " " + song, "", limit = 1)
+    link = customSearch.result()['result'][0]['link']
+    jsonlink = {"yt-link": link}
+    return JsonResponse(jsonlink)
 
 def makeid():
     result = ""
@@ -85,7 +109,6 @@ def random_song(request):
 
         spotify_token_raw = get_token_spotify('https://accounts.spotify.com/api/token', os.getenv('spotify_client_id'),
                                             os.getenv('spotify_client_secret'))
-        # print(json.loads(spotify_token_raw.text)["access_token"])
         spotify_token = json.loads(spotify_token_raw.text)["access_token"]
         query = "https://api.spotify.com/v1/search?type=track&limit=1&offset=" + str(random_offset) + "&q=" + str(
             random_seed)
@@ -93,7 +116,28 @@ def random_song(request):
         URI = uriQ.json()
         request.session['last_random_track'] = URI['tracks']['items'][0]['name']
         request.session['last_random_artist'] = URI['tracks']['items'][0]['artists'][0]['name']
+        request.session['last_random_album'] = URI['tracks']['items'][0]['album']['name']
         request.session['last_random_URL'] = URI['tracks']['items'][0]['external_urls']['spotify']
+
+        #yt = youtube_get(URI['tracks']['items'][0]['name'], URI['tracks']['items'][0]['artists'][0]['name'])
+        #print(yt.text)
+        customSearch = CustomSearch(request.session['last_random_artist'] + " " + request.session['last_random_track'], "", limit = 1)
+        request.session['yt_link'] = customSearch.result()['result'][0]['link']
+        URI.update({"youtube": request.session['yt_link']})
+        #print(request.session['yt_link'])
+
+        #print(dir(PlaylistModel))
+
+        plst = PlaylistModel(
+        playlist_name="History",
+        song=request.session['last_random_track'],
+        artist=request.session['last_random_artist'],
+        album=request.session['last_random_album'],
+        yt_link=request.session['yt_link'],
+        sf_link=request.session['last_weather_URL'],
+        source="Random")
+        plst.save()
+
         response = JsonResponse(URI)
     else:
         response = JsonResponse({"LOGIN": "You must be logged in to use this feature"})
@@ -148,7 +192,22 @@ def weather_song(request, zipcode):
         resp.update(URI)
         request.session['last_weather_track'] = URI['tracks']['items'][0]['name']
         request.session['last_weather_artist'] = URI['tracks']['items'][0]['artists'][0]['name']
+        request.session['last_weather_album'] = URI['tracks']['items'][0]['album']['name']
         request.session['last_weather_URL'] = URI['tracks']['items'][0]['external_urls']['spotify']
+
+        customSearch = CustomSearch(request.session['last_weather_artist'] + " " + request.session['last_weather_track'], "", limit = 1)
+        request.session['yt_link'] = customSearch.result()['result'][0]['link']        
+        resp.update({"youtube": request.session['yt_link']})
+
+        plst = PlaylistModel(playlist_name="History",
+        song=request.session['last_weather_track'],
+        artist=request.session['last_weather_artist'],
+        album=request.session['last_weather_album'],
+        yt_link=request.session['yt_link'],
+        sf_link=request.session['last_weather_URL'],
+        source="Weather")
+        plst.save()
+
         response = JsonResponse(resp)
     else:
         response = JsonResponse({"LOGIN": "You must be logged in to use this feature"})
@@ -187,3 +246,67 @@ def authentication(request, format=None):
         'auth': str(request.auth),  # None
     }
     return Response(content)
+
+"""
+def youtube_store(request):
+        # The user will get an authorization code. This code is used to get the
+    # access token.
+    print("IN YOUTUBE")
+    print(dir(request))
+    print(request.get_full_path())
+    #print("***************")
+    #print(str(request.get_full_path).split("state=",1)[1].split("&code",1)[0])
+    #print("***************")
+    #print(str(request.get_full_path).split("code=",1)[1].split("&scope",1)[0])
+    #print("***************")
+    
+    code = str(request.get_full_path).split("code=",1)[1].split("&scope",1)[0]
+
+    scopes = "https://www.googleapis.com/auth/youtube.readonly"
+    client_secrets_file = str(Path(__file__).resolve().parent) + "/client_secret.json"
+    
+    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+        client_secrets_file, scopes)
+    flow.fetch_token(code=code)
+
+    #   You can use flow.credentials, or you can just get a requests session
+    #   using flow.authorized_session.
+    session = flow.authorized_session()
+    print(session.get('https://www.googleapis.com/userinfo/v2/me').json())
+    youtube = googleapiclient.discovery.build(
+        "youtube", "v3", credentials=flow.credentials)
+
+    request = youtube.search().list(
+        part="snippet",
+        maxResults=1,
+        q="surfing"
+    )
+    response = request.execute()
+
+    print(response)
+    return response
+
+def youtube_get(request):
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+    scopes = "https://www.googleapis.com/auth/youtube.readonly"
+
+    client_secrets_file = str(Path(__file__).resolve().parent) + "/client_secret.json"
+
+    # Get credentials and create an API client
+    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+        client_secrets_file, scopes)
+    flow.redirect_uri="http://localhost:8000/youtube-store/"
+    auth_url, state = flow.authorization_url(
+    # Enable offline access so that you can refresh an access token without
+    # re-prompting the user for permission. Recommended for web server apps.
+    access_type='offline',
+    # Enable incremental authorization. Recommended as a best practice.
+    include_granted_scopes='true')
+    print("FLOW TIME")
+    print(flow)
+    rdr = redirect(auth_url)
+    #print(rdr)
+    #print(rdr.get_full_path())
+    return rdr
+"""
