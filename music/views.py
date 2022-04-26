@@ -134,7 +134,7 @@ def random_song(request):
         artist=request.session['last_random_artist'],
         album=request.session['last_random_album'],
         yt_link=request.session['yt_link'],
-        sf_link=request.session['last_weather_URL'],
+        sf_link=request.session['last_random_URL'],
         source="Random")
         plst.save()
 
