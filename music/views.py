@@ -86,12 +86,41 @@ def get_token_spotify(auth_url, client_id, client_secret):
     return token_response
 
 def post_twitter(request):
-    client = tweepy.OAuth1UserHandler(
-        os.getenv('twitter_consumer_key'), os.getenv('twitter_consumer_secret'),
-        callback = "https://8380s22tm5app.com/"
+    client = tweepy.OAuth2UserHandler(
+        client_id = os.getenv('twitter_client_key'),
+        client_secret = os.getenv('twitter_client_secret'),
+        scope="tweet.write",
+        redirect_uri = "https://8380s22tm5app.com/twitter-flow/"
     )
     #URI = {}
-    return redirect(client.get_authorization_url(signin_with_twitter=True))
+    return redirect(client.get_authorization_url())
+
+def flow_twitter(request):
+    #print("***************")
+    #print(request.get_full_path())
+    state = str(request.get_full_path).split("state=",1)[1].split("&code",1)[0]
+    code = str(request.get_full_path).split("code=",1)[1]
+    authorization_response = str(request.get_full_path)
+    oauth2 = tweepy.OAuth2UserHandler(
+        client_id = os.getenv('twitter_client_key'),
+        client_secret = os.getenv('twitter_client_secret'),
+        scope="tweet.write",
+        redirect_uri = "https://8380s22tm5app.com/twitter-flow/"
+    )
+    access_token_t = oauth2.fetch_token(
+        authorization_response
+    )
+    
+    client = tweepy.Client(access_token_t["access_token"])
+    client.consumer_key=os.getenv('twitter_consumer_key')
+    client.consumer_secret=os.getenv('twitter_consumer_secret')
+    print(dir(client))
+    client.create_tweet(text="Testing out the auth!", user_auth=True)
+    print("***************")
+    print(tweepy.errors.HTTPException)
+    print("***************")
+    #print("***************")
+    return redirect("https://stately-granita-d9d023.netlify.app/")
 
 def post_facebook(request):
     return redirect("https://www.facebook.com/v13.0/dialog/oauth?client_id=" + os.getenv('fb_client_id') + "&redirect_uri=https%3A%2F%2F8380s22tm5app.com%2F&state={\"{st=state123abc,ds=123456789}\"})")

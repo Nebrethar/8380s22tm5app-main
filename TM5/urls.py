@@ -26,6 +26,7 @@ urlpatterns = [
     path('get-playlists/', views.get_playlists),
     path('facebook-post/', views.post_facebook),
     path('twitter-post/', views.post_twitter),
+    path('twitter-flow/', views.flow_twitter),
     path('random-song/', views.random_song),
     path('weather-song/<int:zipcode>/', views.weather_song),
     path('signup/', views.RegisterView.as_view(), name='auth_register'),
