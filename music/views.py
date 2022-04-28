@@ -100,13 +100,14 @@ def flow_twitter(request):
     #print(request.get_full_path())
     state = str(request.get_full_path).split("state=",1)[1].split("&code",1)[0]
     code = str(request.get_full_path).split("code=",1)[1]
-    authorization_response = str(request.get_full_path)
+    authorization_response = "https://8380s22tm5app.com" + str(request.get_full_path)
     oauth2 = tweepy.OAuth2UserHandler(
         client_id = os.getenv('twitter_client_key'),
         client_secret = os.getenv('twitter_client_secret'),
         scope="tweet.write",
         redirect_uri = "https://8380s22tm5app.com/twitter-flow/"
     )
+    print(authorization_response)
     access_token_t = oauth2.fetch_token(
         authorization_response
     )
