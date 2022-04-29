@@ -20,6 +20,11 @@ const routes = [
     component: Base
   },
   {
+    path: '/404/',
+    name: 'notfound',
+    component: NotFoundComponent
+  },
+  {
     path: '/',
     name: 'home',
     component: DashboardHome
@@ -88,6 +93,12 @@ const routes = [
     name: 'Genre',
     component: Genre
   },
+  {
+    path: '/404', name: 'NotFound', component: NotFoundComponent
+  },
+  {
+    path: '/:catchAll(.*)', redirect:'404'
+  }
 ]
 
 const router = createRouter({
