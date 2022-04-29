@@ -26,8 +26,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav mr-auto">
-                <router-link v-if="this.tair=='false'" to="/" class="nav-item nav-link">Home</router-link>
-                <router-link v-if="this.tair=='true'" to="/Authin" class="nav-item nav-link">Home</router-link>
+                <router-link to="/" class="nav-item nav-link">Home</router-link>
                 <router-link v-if="this.tair=='true'" to="/playlists" class="nav-link">History</router-link>
                 <router-link v-if="this.tair=='true'" to="/user-preferences" class="nav-link">User: {{ this.useru }}</router-link>
                 <!--<router-link to="/About" class="nav-item nav-link">About</router-link>-->
@@ -148,7 +147,7 @@ export default {
     var log=this.checkLog()
     //console.log("tair at render: " + log)
     this.isFetching = true;
-      this.$forceUpdate();
+    this.$forceUpdate();
   }
 }
 </script>
