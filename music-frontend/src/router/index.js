@@ -13,6 +13,9 @@ import Random from "@/components/Random"
 import Weather from "@/components/Weather"
 import Genre from "@/components/Genre"
 
+const Vue = window.vue;
+import VueRouter from 'vue-router';
+
 const routes = [
   {
     path: '/Base',
@@ -107,9 +110,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
-  base: "/",
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
 export default router
