@@ -115,7 +115,7 @@ export default {
           //router.go(-1);
           //console.log(router.resolve("Authin").fullPath)
           window.location.href = "https://stately-granita-d9d023.netlify.app/#/Authin"
-          //router.push("Authin").then(window.location.reload())
+          router.push("Authin").then(window.location.reload())
           //this.sleep(30)
         }).catch(e => {
           this.loading = false;
