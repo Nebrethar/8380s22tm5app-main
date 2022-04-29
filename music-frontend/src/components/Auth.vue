@@ -114,12 +114,11 @@ export default {
           //router.push("/");
           //router.go(-1);
           //console.log(router.resolve("Authin").fullPath)
-          window.location.href = "https://stately-granita-d9d023.netlify.app/#/home"
+          window.location.href = "https://stately-granita-d9d023.netlify.app/#/Authin"
           router.push("Authin")
           //router.push("Authin").then(window.location.reload())
           //this.sleep(30)
           console.log("done")
-          this.$forceUpdate();
         }).catch(e => {
           this.loading = false;
           localStorage.removeItem('isAuthenticates');
