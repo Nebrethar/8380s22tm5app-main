@@ -108,7 +108,7 @@ export default {
           localStorage.setItem('log_user', JSON.stringify(this.credentials.username));
           //router.push("/");
           //router.go(-1);
-          router.push("Authout")
+          router.push("Authin")
         }).catch(e => {
           this.loading = false;
           localStorage.removeItem('isAuthenticates');

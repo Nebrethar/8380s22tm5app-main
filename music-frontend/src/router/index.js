@@ -69,6 +69,11 @@ const routes = [
     component: DashboardHome
   },
   {
+    path: '/authin',
+    name: 'Authin',
+    component: LoggedInDashboard
+  },
+  {
     path: '/logout',
     name: 'LogOut',
     component: LogOut
