@@ -13,9 +13,6 @@ import Random from "@/components/Random"
 import Weather from "@/components/Weather"
 import Genre from "@/components/Genre"
 
-const Vue = window.vue;
-import VueRouter from 'vue-router';
-
 const routes = [
   {
     path: '/Base',

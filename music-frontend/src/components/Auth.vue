@@ -113,11 +113,11 @@ export default {
           localStorage.setItem('log_user', JSON.stringify(this.credentials.username));
           //router.push("/");
           //router.go(-1);
-          window.location.href = "/authin/"
-          router.push("Authin")
-          console.log("Timing out")
-          this.sleep(3000)
+          console.log(router.resolve("Authin"))
+          router.push("Authin").then(window.location.reload())
+          //this.sleep(30)
           console.log("done")
+          this.$forceUpdate();
         }).catch(e => {
           this.loading = false;
           localStorage.removeItem('isAuthenticates');
