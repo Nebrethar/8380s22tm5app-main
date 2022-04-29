@@ -98,6 +98,11 @@ export default {
     showPassword: false,
   }),
   methods: {
+    sleep(ms) {
+        return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+      });
+    },
     login() {
       // checking if the input is valid
       if (this.$refs.form) {
@@ -108,7 +113,11 @@ export default {
           localStorage.setItem('log_user', JSON.stringify(this.credentials.username));
           //router.push("/");
           //router.go(-1);
+          window.location.href = "/authin/"
           router.push("Authin")
+          console.log("Timing out")
+          this.sleep(3000)
+          console.log("done")
         }).catch(e => {
           this.loading = false;
           localStorage.removeItem('isAuthenticates');
