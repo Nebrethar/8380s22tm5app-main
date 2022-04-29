@@ -42,6 +42,8 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import webbrowser
 """
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+state = None
 flow = None
 scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
@@ -86,32 +88,27 @@ def get_token_spotify(auth_url, client_id, client_secret):
     return token_response
 
 def post_twitter(request):
-    client = tweepy.OAuth2UserHandler(
-        client_id = os.getenv('twitter_client_key'),
-        client_secret = os.getenv('twitter_client_secret'),
-        scope="tweet.write",
-        redirect_uri = "https://8380s22tm5app.com/twitter-flow/"
-    )
-    #URI = {}
-    return redirect(client.get_authorization_url())
-
-def flow_twitter(request):
-    #print("***************")
-    #print(request.get_full_path())
-    state = str(request.get_full_path).split("state=",1)[1].split("&code",1)[0]
-    code = str(request.get_full_path).split("code=",1)[1]
-    authorization_response = "https://8380s22tm5app.com" + str(request.get_full_path)
     oauth2 = tweepy.OAuth2UserHandler(
         client_id = os.getenv('twitter_client_key'),
         client_secret = os.getenv('twitter_client_secret'),
         scope="tweet.write",
-        redirect_uri = "https://8380s22tm5app.com/twitter-flow/"
+        redirect_uri = "https://stately-granita-d9d023.netlify.app/social-post/"
     )
-    print(authorization_response)
-    access_token_t = oauth2.fetch_token(
-        authorization_response
-    )
-    
+    #URI = {}
+    result = oauth2.get_authorization_url()
+    #print("******************")
+    #print(oauth2._client.code_verifier)
+    #print(dir(oauth2.state))
+    #print(oauth2.state)
+    #request.session["state"] = oauth2.state
+    #state = oauth2.state
+    #request.session["state"] = oauth2.state
+    request.session["oauth2"] = oauth2._client.code_verifier
+    return redirect(result)
+
+    """
+    print(dir(result))
+    access_token_t = oauth2.fetch_token(str(result))
     client = tweepy.Client(access_token_t["access_token"])
     client.consumer_key=os.getenv('twitter_consumer_key')
     client.consumer_secret=os.getenv('twitter_consumer_secret')
@@ -121,10 +118,59 @@ def flow_twitter(request):
     print(tweepy.errors.HTTPException)
     print("***************")
     #print("***************")
+    return redirect(result)
+    """
+
+"""
+def flow_twitter(request):
+    #print("***************")
+    #print(request.get_full_path())
+    state = str(request.get_full_path).split("state=",1)[1].split("&code",1)[0]
+    codetest = str(request.get_full_path).split("code=",1)[1]
+    
+    oauth2 = tweepy.OAuth2UserHandler(
+        client_id = os.getenv('twitter_client_key'),
+        client_secret = os.getenv('twitter_client_secret'),
+        scope="tweet.write",
+        redirect_uri = "https://8380s22tm5app.com/twitter-flow/"
+    )
+    print("__________________")
+    print(request.session["oauth2"])
+    print("__________________")
+    print(state)
+    result = oauth2.get_authorization_url()
+    #oauth2._client.code_verifier = request.session["oauth2"]
+    #oauth2.code_verifier = "2"
+    
+    authorization_response = "https://8380s22tm5app.com?state=" + str(state) + "&code=" + str(codetest)
+    print(authorization_response)
+    access_token_t = oauth2.fetch_token(
+        authorization_response
+    )
+
+    try:
+        client = tweepy.Client(access_token_t["access_token"])
+        client.consumer_key=os.getenv('twitter_consumer_key')
+        client.consumer_secret=os.getenv('twitter_consumer_secret')
+        print(dir(client))
+        client.create_tweet(text="Testing out the auth!", user_auth=False)
+        print("***************")
+        print(tweepy.errors.HTTPException)
+        print("***************")
+    #print("***************")
+    except tweepy.errors.Forbidden as e:
+        print(dir(e))
+        print(e.api_codes)
+        print(e.api_errors)
+        print(e.api_messages)
+        print(e.args)
+        print(e.response.text)
+        #print(e.with_traceback())
     return redirect("https://stately-granita-d9d023.netlify.app/")
+"""
 
 def post_facebook(request):
-    return redirect("https://www.facebook.com/v13.0/dialog/oauth?client_id=" + os.getenv('fb_client_id') + "&redirect_uri=https%3A%2F%2F8380s22tm5app.com%2F&state={\"{st=state123abc,ds=123456789}\"})")
+    return redirect("https://www.facebook.com/v13.0/dialog/oauth?client_id=" + os.getenv('fb_client_id') + "&redirect_uri=https%3A%2F%2Fstately-granita-d9d023.netlify.app%2Fsocial-post%2F&state={\"{st=state123abc,ds=123456789}\"})")
 
 @permission_classes((IsAuthenticated, ))
 def random_song(request):
