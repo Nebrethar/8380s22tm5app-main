@@ -118,6 +118,7 @@ export default {
           //router.push("Authin").then(window.location.reload())
           //this.sleep(30)
         }).catch(e => {
+          console.log("EXCEPTION: " + e)
           this.loading = false;
           localStorage.removeItem('isAuthenticates');
           localStorage.removeItem('log_user');
