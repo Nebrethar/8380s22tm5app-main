@@ -14,6 +14,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
 </head>
+<div>
 <body id="page-top">
   <header class="masthead bg-primary text-white text-center">
     <div id="nav container d-flex align-items-center flex-column">
@@ -25,10 +26,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav mr-auto">
-                <router-link to="/" class="nav-item nav-link">Home</router-link>
-                <router-link to="/user-preferences" class="nav-link">Preferences</router-link>
-                <router-link to="/playlists" class="nav-link">History</router-link>
-                <router-link to="/About" class="nav-item nav-link">About</router-link>
+                <router-link v-if="this.tair=='false'" to="/" class="nav-item nav-link">Home</router-link>
+                <router-link v-if="this.tair=='true'" to="/home" class="nav-item nav-link">Home</router-link>
+                <router-link v-if="this.tair=='true'" to="/playlists" class="nav-link">History</router-link>
+                <router-link v-if="this.tair=='true'" to="/user-preferences" class="nav-link">User: {{ this.useru }}</router-link>
+                <!--<router-link to="/About" class="nav-item nav-link">About</router-link>-->
             </div>
         </div>
         <!--
@@ -36,9 +38,21 @@
         </div>
         <div v-else>
         </div>
+  
+        <router-link @click="checkLog()" tyle="float:right" to="/" class="nav-item nav-link ml-auto">Check</router-link>
+        
+        <router-link tyle="float:right" to="" class="nav-item nav-link ml-auto">
+          {{ this.tair }}
+        </router-link>
+        <router-link @click="checkLog()" tyle="float:right" to="" class="nav-item nav-link ml-auto">CheckDB</router-link>
         -->
-          <router-link style="float:right" to="/Auth" class="nav-item nav-link ml-auto">Login</router-link>
-          <router-link @click="logout()" style="float:right" to="/Authout" class="nav-item nav-link ml-auto">Logout</router-link>
+        <div v-if="this.tair=='false'">
+          <router-link @click="login()" tyle="float:right" to="/Auth" class="nav-item nav-link ml-auto">Login</router-link>
+        </div>
+        <div v-if="this.tair=='true'">
+          <!-- <router-link style="float:right" to="/user-preferences" class="nav-item nav-link ml-auto">Welcome {{this.useru}}!</router-link> -->
+          <router-link @click="logout()" style="float:right" to="/logout" class="nav-item nav-link ml-auto">Logout</router-link>
+        </div>
       </nav>
     </div>
     <router-view/>
@@ -49,6 +63,7 @@
         <img :src="require('@/static/assets/facebook.svg')" style="height: 1rem; width: 1rem;"></p>
     </strong></div>
 </body>
+  </div>
 </html>
 </template>
 
@@ -89,16 +104,51 @@
 </style>
 
 <script>
+import { ref } from '@vue/reactivity';
 export default {
   name: 'app',
-  methods: {
-    logout() {
-      console.log(localStorage.getItem('isauthenticates'));
-      localStorage.setItem('token', null);
-      localStorage.setItem('isAuthenticates', JSON.stringify(false));
-      localStorage.setItem('log_user', null);
-      window.location = "/"
+  data() {
+    return {
+      refreshKey: false,
+      auth: false,
+      tair: true,
+      isFetching: true,
+      useru: ""
     }
+  },
+  methods: {
+    login() {
+      console.log("Logging in!");
+    },
+    logout() {
+      //console.log("Logging out!");
+      localStorage.setItem('token', null);
+      localStorage.setItem('isAuthenticates', false);
+      localStorage.setItem('log_user', null);
+      //console.log("Set isAuthenticates to: " + localStorage.getItem('isAuthenticates'))
+      this.checkLog()
+      //this.tair=false;
+    },
+    checkLog() {
+      //console.log("Local storage: " + localStorage.getItem('isAuthenticates'));
+      this.tair = localStorage.getItem('isAuthenticates')
+      this.useru = localStorage.getItem('log_user').replace(/"/g,"")
+      console.log("Setting tair to: " + this.tair)
+      this.$forceUpdate();
+      return this.tair
+    },
+  },
+  computed: {
+    doubleCheck() {
+    },
+  },
+  mounted: function() {
+    
+    //console.log("Setting tair to " + localStorage.getItem('isAuthenticates'))
+    var log=this.checkLog()
+    //console.log("tair at render: " + log)
+    this.isFetching = true;
+      this.$forceUpdate();
   }
 }
 </script>

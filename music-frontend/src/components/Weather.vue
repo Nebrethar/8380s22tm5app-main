@@ -2,7 +2,7 @@
   <div>
     <!-- Welcome Features -->
     <div class="row align-items-center justify-content-center">
-      <h1><b>Welcome {{ validUserName }}! </b><a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>
+      <h1><b>Welcome {{ validUserName }}! </b>,<!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;--></h1>
     </div>
     <br>
     <div class="row align-items-center justify-content-center">
@@ -17,11 +17,11 @@
         <div class="col-lg-4">
           <div class="btn py-2" id="twitterButton">Share on Twitter</div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4" style="visibility:hidden">
           <div class="btn py-2" id="facebookButton">Post on Facebook</div>
         </div>
         <div class="col-lg-4">
-          <div class="btn btn-dark py-2" id="playlistButton">Add to your Playlist</div>
+          <div class="btn btn-dark py-2" id="facebookButton">Post on Facebook</div>
         </div>
       </div>
     </div>

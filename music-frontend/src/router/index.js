@@ -6,6 +6,8 @@ import LoggedInDashboard from '@/components/LoggedInDashboard.vue'
 import PreferencesView from '../views/PreferencesView.vue'
 import PlaylistView from '../views/PlaylistView.vue'
 import Auth from '@/components/Auth.vue'
+import LogOut from '@/components/LogOut.vue'
+import SocialPost from '@/components/SocialPost.vue'
 import Signup from '@/components/Signup.vue'
 import Random from "@/components/Random"
 import Weather from "@/components/Weather"
@@ -28,13 +30,19 @@ const routes = [
     component: LoggedInDashboard
   },
   {
+    path: '/social-post',
+    name: 'socialpost',
+    component: SocialPost
+  },
+  /*
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
+    component: () => import(/* webpackChunkName: "about" */ //'../views/AboutView.vue')
+  //},
   {
     path: '/user-preferences',
     name: 'preferences',
@@ -54,6 +62,11 @@ const routes = [
     path: '/authout',
     name: 'Authout',
     component: DashboardHome
+  },
+  {
+    path: '/logout',
+    name: 'LogOut',
+    component: LogOut
   },
   {
     path: '/signup',
