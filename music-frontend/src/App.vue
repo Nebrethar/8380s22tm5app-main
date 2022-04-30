@@ -142,7 +142,9 @@ export default {
     },
   },
   mounted: function() {
-    
+    window.addEventListener('popstate', function(event) {
+      window.location.href = "/"
+    });
     //console.log("Setting tair to " + localStorage.getItem('isAuthenticates'))
     var log=this.checkLog()
     //console.log("tair at render: " + log)
