@@ -9,20 +9,20 @@
                 </div>
     </div>
     -->
-    <div v-if="this.tair=='true'">
+    <div v-if="this.tair=='true'" class="text-white">
         <!-- Welcome Features -->
-        <div class="container-fluid text-black">
+        <div class="container-fluid">
             <div class="row align-items-center justify-content-center">
-                    <h1><b>Welcome User! </b></h1><br><br>
+                    <h1><b>Welcome {{ this.useru }}!</b></h1><br><br>
                 <div class="card-group" style="width:1250px; height:200px;">
                     <!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>-->
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body text-black">
                             <h2 class="card-title"><img :src="require('@/static/assets/sun-icon.png')" style="height: 10rem; width: 10rem;">&nbsp;&nbsp;75&#176;</h2>
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body text-black">
                             <h5 class="card-title"><img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;"> Now Playing: Enemy x Imagine Dragons</h5>
                             This weather calls for a sunny playlist!
                         </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <br>
-            <div class="row align-items-center justify-content-center">
+            <div class="row align-items-center justify-content-center text-black">
                 <div class="card-group" style="width:900px">
                     <div class="card">
                         <div class="card-header">
@@ -54,10 +54,10 @@
                 </div>
             </div>
             <br>
-            <div class="row align-items-center justify-content-center">
+            <div class="row align-items-center justify-content-center text-black">
                 <div class="card" style="width:1000px">
-                    <h2 class="card-title">Random Music Video: Enemy x Imagine Dragons</h2>
-                    <iframe width="975" height="500" src="https://www.youtube.com/embed/D9G1VOjN_84" title="YouTube video player" 
+                    <h2 class="card-title" style="padding-top:20px; padding-bottom:0px">Random Music Video: Enemy x Imagine Dragons</h2>
+                                        <iframe width="975" height="500" style="padding:0px 20px 20px 20px" src="https://www.youtube.com/embed/D9G1VOjN_84" title="YouTube video player" 
                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
@@ -65,7 +65,7 @@
     </div>
     <div v-else class="text-white">
         <!-- Welcome Text -->
-        <h1 class="py-sm-5 masthead-heading mb-0" ><b>Welcome to the Music Recommendation App!</b></h1>
+        <h1 class="py-sm-5 masthead-heading mb-0" ><b>Welcome to the <br>Music Recommendation App!</b></h1>
         
         <!-- Welcome Features -->
         <div class="container-fluid text-black">
