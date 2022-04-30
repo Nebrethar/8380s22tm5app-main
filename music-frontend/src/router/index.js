@@ -101,6 +101,9 @@ const routes = [
   {
     path: '/404', name: 'NotFound', component: NotFoundComponent
   },
+  {
+    path: '/:catchAll(.*)', redirect:'/'
+  }
 ]
 
 const router = createRouter({
