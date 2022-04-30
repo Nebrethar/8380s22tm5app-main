@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-    <div v-if="checkLog()=='false'" class="text-white">
+    <div v-else class="text-white">
         <!-- Welcome Text -->
         <h1 class="py-sm-5 masthead-heading mb-0" ><b>Welcome to the Music Recommendation App!</b></h1>
         
