@@ -143,7 +143,7 @@ export default {
     this.checkLog()
     //console.log("tair at render: " + log)
     this.isFetching = true;
-      this.$forceUpdate();
+    this.$forceUpdate();
   }
 }
 </script>
