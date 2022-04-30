@@ -140,7 +140,7 @@ export default {
   mounted: function() {
     
     //console.log("Setting tair to " + localStorage.getItem('isAuthenticates'))
-    //this.checkLog()
+    this.checkLog()
     //console.log("tair at render: " + log)
     this.isFetching = true;
       this.$forceUpdate();
