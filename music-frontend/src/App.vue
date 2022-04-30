@@ -27,7 +27,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav mr-auto">
                 <router-link to="/" class="nav-item nav-link">Home</router-link>
-                <router-link v-if="this.tair=='true'" to="/playlists" class="nav-link">History</router-link>
+                <router-link v-if="this.tair=='true'" to="/history" class="nav-link">History</router-link>
                 <router-link v-if="this.tair=='true'" to="/user-preferences" class="nav-link">User: {{ this.useru }}</router-link>
                 <!--<router-link to="/About" class="nav-item nav-link">About</router-link>-->
             </div>

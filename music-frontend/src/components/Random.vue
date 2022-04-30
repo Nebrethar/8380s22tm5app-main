@@ -29,8 +29,8 @@
     <div class="row align-items-center justify-content-center">
       <div class="card" style="width:1000px">
         <h3 class="card-title pt-3 pb-1" style="color: black">Music Video: Enemy x Imagine Dragons</h3>
-        <iframe width="975" height="500" src="https://www.youtube.com/embed/D9G1VOjN_84" title="YouTube video player"
-                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="975" height="500" style="padding:0px 20px 20px 20px" src="https://www.youtube.com/embed/D9G1VOjN_84" title="YouTube video player" 
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -47,9 +47,6 @@ export default {
     validUserName: "Guest",
     recommendation: [],
   }),
-  mounted() {
-    this.getRecommendation();
-  },
   methods: {
     getRecommendation() {
       if (localStorage.getItem("isAuthenticates")
@@ -57,6 +54,14 @@ export default {
         this.validUserName = JSON.parse(localStorage.getItem("log_user"));
       }
     },
+  },
+  mounted: function () {
+    this.getRecommendation();
+    history.pushState(
+        {},
+        null,
+        '/'
+    )
   }
 };
 </script>

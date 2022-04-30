@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-body text-black">
+                        <div class="card-body text-black" style="padding-top:4em">
                             <h5 class="card-title"><img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;"> Now Playing: Enemy x Imagine Dragons</h5>
                             This weather calls for a sunny playlist!
                         </div>
@@ -37,7 +37,8 @@
                             Your Playlists
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><img :src="require('@/static/assets/heart-fill.svg')" style="height: 1rem; width: 1rem;"> <a href="#" class="card-link">All Recommendations</a></li>
+                            
+                            <li class="list-group-item" style="padding-top:0.6em"><router-link to="/" class="card-link"><img :src="require('@/static/assets/heart-fill.svg')" style="height: 1rem; width: 1rem;"><br>Recommendation<br>History</router-link></li>
                         </ul>
                     </div>
                     <div class="card">
@@ -45,10 +46,13 @@
                         Recommendations
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="#/weather" class="card-link">Weather</a></li>
-                            <li class="list-group-item"><a href="#/genre" class="card-link">Genre</a></li>
-                            <li class="list-group-item"><a href="#/random" class="card-link">Random</a></li>
-                            <li class="list-group-item"><a href="#" class="card-link">Music Videos</a></li>
+                            <li class="list-group-item"><router-link to="/weather" class="card-link">Random</router-link></li>
+                            <li class="list-group-item"><router-link to="/weather" class="card-link">Weather</router-link></li>
+                            <!--
+                                <li class="list-group-item"><a href="#/genre" class="card-link">Genre</a></li>
+                                <li class="list-group-item"><a href="#/random" class="card-link">Random</a></li>
+                                <li class="list-group-item"><a href="#" class="card-link">Music Videos</a></li>
+                            -->
                         </ul>
                     </div>
                 </div>

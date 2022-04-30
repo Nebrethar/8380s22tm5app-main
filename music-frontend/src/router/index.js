@@ -2,16 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 import DashboardHome from '@/components/DashboardHome.vue'
 import Base from '@/components/Base.vue'
 import NotFoundComponent from '@/components/NotFoundComponent.vue'
-import LoggedInDashboard from '@/components/LoggedInDashboard.vue'
+//import LoggedInDashboard from '@/components/LoggedInDashboard.vue'
 import PreferencesView from '../views/PreferencesView.vue'
 import PlaylistView from '../views/PlaylistView.vue'
 import Auth from '@/components/Auth.vue'
 import LogOut from '@/components/LogOut.vue'
 import SocialPost from '@/components/SocialPost.vue'
+import UserPreferences from '@/components/UserPreferences.vue'
+import History from '@/components/History.vue'
 import Signup from '@/components/Signup.vue'
 import Random from "@/components/Random"
 import Weather from "@/components/Weather"
-import Genre from "@/components/Genre"
+//import Genre from "@/components/Genre"
 
 const routes = [
   {
@@ -30,11 +32,6 @@ const routes = [
     component: DashboardHome
   },
   {
-    path: '/home',
-    name: 'loggedinhome',
-    component: LoggedInDashboard
-  },
-  {
     path: '/social-post',
     name: 'socialpost',
     component: SocialPost
@@ -50,13 +47,13 @@ const routes = [
   //},
   {
     path: '/user-preferences',
-    name: 'preferences',
-    component: PreferencesView
+    name: 'user-preferences',
+    component: UserPreferences
   },
   {
-    path: '/playlists',
-    name: 'playlists',
-    component: PlaylistView
+    path: '/history',
+    name: 'history',
+    component: History
   },
   {
     path: '/auth',
@@ -68,11 +65,13 @@ const routes = [
     name: 'Authout',
     component: DashboardHome
   },
+  /*
   {
     path: '/authin',
     name: 'Authin',
     component: LoggedInDashboard
   },
+  */
   {
     path: '/logout',
     name: 'LogOut',
@@ -93,11 +92,13 @@ const routes = [
     name: 'Weather',
     component: Weather
   },
+  /*
   {
     path: '/genre',
     name: 'Genre',
     component: Genre
   },
+  */
   {
     path: '/404', name: 'NotFound', component: NotFoundComponent
   },
@@ -107,6 +108,7 @@ const routes = [
 ]
 
 const router = createRouter({
+  mode: 'abstract',
   history: createWebHistory(process.env.BASE_URL),
   routes
 })

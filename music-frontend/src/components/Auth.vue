@@ -126,6 +126,13 @@ export default {
         })
       }
     }
+  },
+  mounted: function () {
+    history.pushState(
+        {},
+        null,
+        '/'
+    )
   }
 }
 </script>
