@@ -45,12 +45,12 @@
         </router-link>
         <router-link @click="checkLog()" tyle="float:right" to="" class="nav-item nav-link ml-auto">CheckDB</router-link>
         -->
-        <div v-if="this.tair=='false'">
-          <router-link @click="login()" tyle="float:right" to="/Auth" class="nav-item nav-link ml-auto">Login</router-link>
-        </div>
         <div v-if="this.tair=='true'">
           <!-- <router-link style="float:right" to="/user-preferences" class="nav-item nav-link ml-auto">Welcome {{this.useru}}!</router-link> -->
           <router-link @click="logout()" style="float:right" to="/logout" class="nav-item nav-link ml-auto">Logout</router-link>
+        </div>
+        <div v-else>
+          <router-link @click="login()" tyle="float:right" to="/Auth" class="nav-item nav-link ml-auto">Login</router-link>
         </div>
       </nav>
     </div>
