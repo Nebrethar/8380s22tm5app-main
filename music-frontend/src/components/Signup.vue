@@ -103,7 +103,6 @@ export default {
       })
       this.v$.$touch();
       if (!this.v$.$error) return;
-      alert('All fields are required')
     }
   }
 }
