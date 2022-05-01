@@ -10,6 +10,7 @@ class PlaylistModel(models.Model):
     yt_link = models.CharField(blank=True, max_length=100)
     sf_link = models.CharField(blank=True, max_length=100)
     source = models.CharField(blank=True, max_length=100)
+    username = models.CharField(blank=True, max_length=100)
 
     def __str__(self):
             return self.playlist_name
