@@ -60,9 +60,15 @@
             <br>
             <div class="row align-items-center justify-content-center text-black">
                 <div class="card" style="width:1000px">
-                    <h2 class="card-title" style="padding-top:20px; padding-bottom:0px">Random Music Video: Enemy x Imagine Dragons</h2>
-                                        <iframe width="975" height="500" style="padding:0px 20px 20px 20px" src="https://www.youtube.com/embed/D9G1VOjN_84" title="YouTube video player" 
-                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  <h2 class="card-title" style="padding-top:20px; padding-bottom:0px">
+                    Random Music Video: {{ song }} x {{ artist }}
+                  </h2>
+                  <iframe
+                      id="loggedInMusicVideo" width="975" height="500" style="padding:0px 20px 20px 20px"
+                      src="" title="YouTube video player" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen>
+                  </iframe>
                 </div>
             </div>
         </div>
@@ -93,9 +99,15 @@
             <br>
             <div class="row align-items-center justify-content-center" style="margin-top:30px">
                 <div class="card" style="width:1000px">
-                    <h2 class="card-title" style="padding-top:20px; padding-bottom:0px">Random Music Video: Enemy x Imagine Dragons</h2>
-                    <iframe width="975" height="500" style="padding:0px 20px 20px 20px" src="https://www.youtube.com/embed/D9G1VOjN_84" title="YouTube video player" 
-                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h2 class="card-title" style="padding-top:20px; padding-bottom:0px">
+                      Random Music Video: {{ song }} x {{ artist }}
+                    </h2>
+                    <iframe
+                        id="loggedOutMusicVideo" width="975" height="500" style="padding:0px 20px 20px 20px"
+                        src="" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -119,7 +131,10 @@ export default {
       auth: false,
       tair: true,
       isFetching: true,
-      useru: ""
+      useru: "",
+      youtubeID: "",
+      song: "",
+      artist: "",
     }
   },
   methods: {
@@ -136,6 +151,27 @@ export default {
       //this.$forceUpdate();
       return this.tair
     },
+    getRecommendation() {
+      apiService.getRandom().then(response => {
+        this.youtubeID = response.data.youtube.split("=")[1];
+        this.song = response.data.tracks.items[0].name;
+        this.artist = response.data.tracks.items[0].album.artists[0].name;
+        if (localStorage.getItem("isAuthenticates")
+            && JSON.parse(localStorage.getItem("isAuthenticates")) === true) {
+          document.getElementById("loggedInMusicVideo").src = "https://www.youtube.com/embed/" + this.youtubeID;
+        }
+        else {
+          document.getElementById("loggedOutMusicVideo").src = "https://www.youtube.com/embed/" + this.youtubeID;
+        }
+      }).catch(error => {
+        if (error.response.status === 401) {
+          localStorage.removeItem('isAuthenticates');
+          localStorage.removeItem('log_user');
+          localStorage.removeItem('token');
+          router.push("/auth");
+        }
+      });
+    },
   },
   computed: {
     doubleCheck() {
@@ -148,6 +184,7 @@ export default {
     //console.log("tair at render: " + log)
     this.isFetching = true;
     this.$forceUpdate();
+    this.getRecommendation();
   }
 }
 </script>

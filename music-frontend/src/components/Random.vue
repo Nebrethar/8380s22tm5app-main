@@ -2,7 +2,7 @@
   <div>
     <!-- Welcome Features -->
     <div class="row align-items-center justify-content-center">
-      <h1><b>Welcome {{ validUserName }}! </b><!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;--></h1>
+      <h1><b>Welcome {{ validUserName }}! </b></h1>
     </div>
     <br>
     <div class="row align-items-center justify-content-center">
@@ -46,7 +46,6 @@ export default {
   name: "Random",
   data: () => ({
     validUserName: "Guest",
-    songData: [],
     youtubeID: "",
     song: "",
     artist: "",
@@ -54,7 +53,6 @@ export default {
   methods: {
     getRecommendation() {
       apiService.getRandom().then(response => {
-        this.songData = response.data;
         this.youtubeID = response.data.youtube.split("=")[1];
         this.song = response.data.tracks.items[0].name;
         this.artist = response.data.tracks.items[0].album.artists[0].name;
