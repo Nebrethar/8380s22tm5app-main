@@ -178,7 +178,7 @@ def random_song(request):
     if "Authorization" in hd:
         chkval = hd.split("\'Authorization\':", 1)[1]
     else:
-        chkval = " "
+        chkval = "Bearer"
     if "Bearer" in chkval:
         random_seed = makeid()
         random_offset = random.randint(0, 1000)
@@ -224,7 +224,7 @@ def weather_song(request, zipcode):
     if "Authorization" in hd:
         chkval = hd.split("\'Authorization\':", 1)[1]
     else:
-        chkval = " "
+        chkval = "Bearer"
     if "Bearer" in chkval:
         weather = requests.get(
             "http://api.openweathermap.org/data/2.5/forecast?zip=" + str(zipcode) + "&appid=" + os.getenv('weather_token'))

@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group my-2">
                   <input id="username" type="username" class="form-control"
-                         placeholder="Uswername" v-model="signupcreds.username"
+                         placeholder="Username" v-model="signupcreds.username"
                   >
                 </div>
                 <div class="form-group my-2">
