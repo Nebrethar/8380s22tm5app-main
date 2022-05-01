@@ -92,6 +92,9 @@ export default {
       console.log(this.signupcreds)
       if (this.signupcreds.username && this.signupcreds.password && this.signupcreds.first_name && this.signupcreds.last_name && this.signupcreds.email) {
         if (this.signupcreds.password == this.signupcreds.confirm) {
+          apiService.getUser(this.signupcreds.username).then((res)=>{
+            console.log(res)
+          })
           apiService.authenticateSignup(this.signupcreds).then((res)=>{
             localStorage.setItem('token', signupcreds.password);
             localStorage.setItem('isAuthenticates', true);
