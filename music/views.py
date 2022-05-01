@@ -207,6 +207,11 @@ def post_facebook(request):
 @permission_classes((IsAuthenticated, ))
 def random_song(request):
     hd = str(request.headers)
+    if "username" in request.get_full_path():
+        username = str(request.get_full_path).split("username=",1)[1].split("\'",1)[0]
+    else:
+        username = "instructor"
+    print("USERNAME: " + username)
     if "Authorization" in hd:
         chkval = hd.split("\'Authorization\':", 1)[1]
     else:
@@ -243,7 +248,8 @@ def random_song(request):
         album=request.session['last_random_album'],
         yt_link=request.session['yt_link'],
         sf_link=request.session['last_random_URL'],
-        source="Random")
+        source="Random",
+        username=username)
         plst.save()
 
         response = JsonResponse(URI)
@@ -253,6 +259,10 @@ def random_song(request):
 
 def weather_song(request, zipcode):
     hd = str(request.headers)
+    if "username" in request.get_full_path():
+        username = str(request.get_full_path).split("username=",1)[1].split("\'",1)[0]
+    else:
+        username = "instructor"
     if "Authorization" in hd:
         chkval = hd.split("\'Authorization\':", 1)[1]
     else:
@@ -313,7 +323,8 @@ def weather_song(request, zipcode):
         album=request.session['last_weather_album'],
         yt_link=request.session['yt_link'],
         sf_link=request.session['last_weather_URL'],
-        source="Weather")
+        source="Weather",
+        username=username)
         plst.save()
 
         response = JsonResponse(resp)

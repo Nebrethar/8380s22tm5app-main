@@ -4,4 +4,4 @@ from .models import PlaylistModel
 @admin.register(PlaylistModel)
 class PlaylistModelAdmin(admin.ModelAdmin):
 
-    list_display = ["playlist_id", "playlist_name", "song", "artist", "album", "source"]
+    list_display = ["playlist_id", "playlist_name", "song", "artist", "album", "source", "username"]
