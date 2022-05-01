@@ -117,7 +117,7 @@ def user_get(request, username):
         #print(users_finish)
         return JsonResponse(users_ready, safe=False)
     else:
-        return JsonResponse({"Open": "Username does not exist"})
+        return JsonResponse({"Error": "Username exists"})
 
 def user_update(request):
     username = str(request.get_full_path).split("username=",1)[1].split("&email",1)[0]
@@ -136,7 +136,7 @@ def user_update(request):
         #users_finish = json.dumps(users_ready)
         return JsonResponse(users_ready, safe=False)
     else:
-        return JsonResponse({"Open": "Username does not exist"})
+        return JsonResponse({"Error": "Username exists"})
 
     """
     print(dir(result))

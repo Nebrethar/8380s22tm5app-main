@@ -95,36 +95,14 @@ export default {
       localStorage.setItem('useropen', false);
       if (this.signupcreds.username && this.signupcreds.password && this.signupcreds.first_name && this.signupcreds.last_name && this.signupcreds.email) {
         if (this.signupcreds.password == this.signupcreds.confirm) {
-          apiService.getUser(this.signupcreds.username).then((res)=>{
+          apiService.authenticateSignup(this.signupcreds).then((res)=>{
+            localStorage.setItem('token', signupcreds.password);
+            localStorage.setItem('isAuthenticates', true);
+            localStorage.setItem('log_user', JSON.stringify(this.signupcreds.username));
+            console.log("RESPONSE")
             console.log(res)
-            var existo = false
-            console.log(res.data)
-            console.log(res.data.Open)
-            if(res.data.Open) {
-              existo = true
-            }
-            console.log("EXISTO:")
-            console.log(existo)
-            localStorage.setItem('useropen', existo);
-          }).then(function () {
-            if (localStorage.getItem('useropen')==true) {
-                console.log("AVAILABLE FOR NEW USER")
-                apiService.authenticateSignup(localStorage.getItem('signupcreds')).then((res)=>{
-                  localStorage.setItem('token', signupcreds.password);
-                  localStorage.setItem('isAuthenticates', true);
-                  localStorage.setItem('log_user', JSON.stringify(this.signupcreds.username));
-                  console.log("RESPONSE")
-                  console.log(res)
-                  localStorage.setItem('useropen', false);
-                  this.$router.push("/Auth")
-                })
-              } else {
-                console.log("NOT AVAILABLE FOR NEW USER")
-                alert("Username exists. Please pick another.")
-                router.push("/signup")
-                localStorage.setItem('useropen', false);
-              }
           })
+          this.$router.push("/Auth")
         } else {
           alert("Passwords do not match.")
         }
