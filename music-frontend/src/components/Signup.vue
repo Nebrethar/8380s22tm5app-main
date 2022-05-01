@@ -91,17 +91,14 @@ export default {
       console.log("First Name: ")
       console.log(this.signupcreds)
       apiService.authenticateSignup(this.signupcreds).then((res)=>{
+        localStorage.setItem('token', signupcreds.password);
+        localStorage.setItem('isAuthenticates', true);
+        localStorage.setItem('log_user', JSON.stringify(this.signupcreds.username));
         console.log("RESPONSE")
         console.log(res)
-        apiService.authenticateLogin(this.signupcreds).then((res)=>{
-          print("RESPONSE 2")
-          localStorage.setItem('token', res.data.access);
-          localStorage.setItem('isAuthenticates', true);
-          localStorage.setItem('log_user', JSON.stringify(this.signupcreds.username));
-          window.location.href = "https://stately-granita-d9d023.netlify.app/"  
-        })
       })
       this.v$.$touch();
+      this.$router.push("/Auth")
       if (!this.v$.$error) return;
     }
   }
