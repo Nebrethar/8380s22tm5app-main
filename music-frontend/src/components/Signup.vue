@@ -94,13 +94,11 @@ export default {
         console.log("RESPONSE")
         console.log(res)
         apiService.authenticateLogin(this.signupcreds).then((res)=>{
+          print("RESPONSE 2")
           localStorage.setItem('token', res.data.access);
           localStorage.setItem('isAuthenticates', true);
           localStorage.setItem('log_user', JSON.stringify(this.signupcreds.username));
-          //router.push("/");
-          //router.go(-1);
-          //console.log(router.resolve("Authin").fullPath)
-          window.location.href = "https://stately-granita-d9d023.netlify.app/"
+          window.location.href = "https://stately-granita-d9d023.netlify.app/"  
         })
       })
       this.v$.$touch();
