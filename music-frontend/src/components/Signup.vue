@@ -10,22 +10,27 @@
 
               <form>
                 <div class="form-group my-2">
-                  <input id="firstName" type="text" class="form-control" placeholder="First Name" v-model="first_name">
+                  <input id="firstName" type="text" class="form-control" placeholder="First Name" v-model="signupcreds.first_name">
                 </div>
                 <div class="form-group my-2">
-                  <input id="lastName" type="text" class="form-control" placeholder="Last Name" v-model="last_name">
+                  <input id="lastName" type="text" class="form-control" placeholder="Last Name" v-model="signupcreds.last_name">
                 </div>
                 <div class="form-group my-2">
-                  <input id="email" type="email" class="form-control" placeholder="Email Address" v-model="email">
+                  <input id="email" type="email" class="form-control" placeholder="Email Address" v-model="signupcreds.email">
+                </div>
+                <div class="form-group my-2">
+                  <input id="username" type="username" class="form-control"
+                         placeholder="Uswername" v-model="signupcreds.username"
+                  >
                 </div>
                 <div class="form-group my-2">
                   <input id="password" type="password" class="form-control"
-                         placeholder="Password" v-model="password.password"
+                         placeholder="Password" v-model="signupcreds.password"
                   >
                 </div>
                 <div class="form-group my-2">
                   <input id="passwordConfirm" type="password" class="form-control"
-                         placeholder="Confirm Password" v-model="password.confirm"
+                         placeholder="Confirm Password" v-model="signupcreds.confirm"
                   >
                 </div>
                 <!--
@@ -55,6 +60,8 @@
 <script>
 import useVuelidate from '@vuelidate/core'
 import { required, email, sameAs } from '@vuelidate/validators'
+import {APIService} from '../http/APIService';
+const apiService = new APIService();
 
 export default {
   setup () {
@@ -62,13 +69,7 @@ export default {
   },
   data () {
     return {
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: {
-        password: '',
-        confirm: '',
-      }
+      signupcreds: {},
     }
   },
   validations () {
@@ -87,6 +88,22 @@ export default {
   },
   methods: {
     onSubmit: function() {
+      console.log("First Name: ")
+      console.log(this.signupcreds)
+      apiService.authenticateSignup(this.signupcreds).then((res)=>{
+        print(res)
+        this.crdentials.username = this.signupcreds.username
+        this.crdentials.password = this.signupcreds.password
+        apiService.authenticateLogin(this.credentials).then((res)=>{
+          localStorage.setItem('token', res.data.access);
+          localStorage.setItem('isAuthenticates', true);
+          localStorage.setItem('log_user', JSON.stringify(this.credentials.username));
+          //router.push("/");
+          //router.go(-1);
+          //console.log(router.resolve("Authin").fullPath)
+          window.location.href = "https://stately-granita-d9d023.netlify.app/"
+        })
+      })
       this.v$.$touch();
       if (!this.v$.$error) return;
       alert('All fields are required')

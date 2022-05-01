@@ -13,4 +13,15 @@ export class APIService {
         logFormData.append("password", credentials.password);
         return axios.post(url,logFormData);
     }
+
+    authenticateSignup(signupcreds) {
+        const url = `${API_URL}api/signup/`;
+        const logFormData = new FormData();
+        logFormData.append("first_name", signupcreds.first_name);
+        logFormData.append("last_name", signupcreds.last_name);
+        logFormData.append("email", signupcreds.email);
+        logFormData.append("username", signupcreds.username);
+        logFormData.append("password", signupcreds.password);
+        return axios.post(url,logFormData);
+    }
 }
