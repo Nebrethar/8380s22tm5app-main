@@ -15,14 +15,7 @@ export class APIService {
     }
 
     authenticateSignup(signupcreds) {
-        const url = `${API_URL}api/signup/`;
-        return axios.post(url,{
-            "username": signupcreds.username,
-            "password": signupcreds.password,
-            "first_name": signupcreds.first_name,
-            "last_name": signupcreds.last_name,
-            "email": signupcreds.email,
-
-        });
+        const url = `${API_URL}api/signup/?username=` + signupcreds.username + "&password=" + signupcreds.password + "&email=" + signupcreds.email + "&first_name=" + signupcreds.first_name  + "&last_name=" + signupcreds.last_name;
+        return axios.post(url, {})
     }
 }

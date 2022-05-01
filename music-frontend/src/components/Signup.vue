@@ -91,13 +91,12 @@ export default {
       console.log("First Name: ")
       console.log(this.signupcreds)
       apiService.authenticateSignup(this.signupcreds).then((res)=>{
-        print(res)
-        this.crdentials.username = this.signupcreds.username
-        this.crdentials.password = this.signupcreds.password
-        apiService.authenticateLogin(this.credentials).then((res)=>{
+        console.log("RESPONSE")
+        console.log(res)
+        apiService.authenticateLogin(this.signupcreds).then((res)=>{
           localStorage.setItem('token', res.data.access);
           localStorage.setItem('isAuthenticates', true);
-          localStorage.setItem('log_user', JSON.stringify(this.credentials.username));
+          localStorage.setItem('log_user', JSON.stringify(this.signupcreds.username));
           //router.push("/");
           //router.go(-1);
           //console.log(router.resolve("Authin").fullPath)

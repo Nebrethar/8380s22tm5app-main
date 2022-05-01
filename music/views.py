@@ -323,6 +323,7 @@ def authentication(request, format=None):
     }
     return Response(content)
 
+@api_view(['GET', 'POST'])
 def signup(request):
     username = str(request.get_full_path).split("username=",1)[1].split("&password",1)[0]
     password = str(request.get_full_path).split("password=",1)[1].split("&email",1)[0]
@@ -335,11 +336,6 @@ def signup(request):
         email=email,
         first_name=first_name,
         last_name=last_name)
-    print(username)
-    print(password)
-    print(email)
-    print(first_name)
-    print(last_name)
     return JsonResponse({})
 
 """
