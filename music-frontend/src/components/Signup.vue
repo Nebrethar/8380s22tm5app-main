@@ -90,17 +90,30 @@ export default {
     onSubmit: function() {
       console.log("First Name: ")
       console.log(this.signupcreds)
-      apiService.authenticateSignup(this.signupcreds).then((res)=>{
-        localStorage.setItem('token', signupcreds.password);
-        localStorage.setItem('isAuthenticates', true);
-        localStorage.setItem('log_user', JSON.stringify(this.signupcreds.username));
-        console.log("RESPONSE")
-        console.log(res)
-      })
-      this.v$.$touch();
-      this.$router.push("/Auth")
-      if (!this.v$.$error) return;
+      if (this.signupcreds.username && this.signupcreds.password && this.signupcreds.first_name && this.signupcreds.last_name && this.signupcreds.email) {
+        if (this.signupcreds.password == this.signupcreds.confirm) {
+          apiService.authenticateSignup(this.signupcreds).then((res)=>{
+            localStorage.setItem('token', signupcreds.password);
+            localStorage.setItem('isAuthenticates', true);
+            localStorage.setItem('log_user', JSON.stringify(this.signupcreds.username));
+            console.log("RESPONSE")
+            console.log(res)
+          })
+          this.$router.push("/Auth")
+        } else {
+          alert("Passwords do not match.")
+        }
+      } else {
+        alert("Please fill out all signup fields.")
+      }
     }
+  },
+  mounted: function () {
+    history.pushState(
+        {},
+        null,
+        '/'
+    )
   }
 }
 </script>
