@@ -23,4 +23,12 @@ export class APIService {
         const url = `${API_URL}user/get/` + username + "/";
         return axios.get(url)
     }
+
+    getRandom(param_pk) {
+        const url = `${API_URL}random-song/`;
+        let bearerToken = localStorage.getItem('token');
+        console.log(":::bearerToken:::::"+bearerToken);
+        const headers = {Authorization: `Bearer ${bearerToken}`};
+        return axios.get(url, {headers: {Authorization: `Bearer ${bearerToken}`}});
+    }
 }

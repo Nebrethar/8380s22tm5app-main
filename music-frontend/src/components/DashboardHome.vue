@@ -46,7 +46,7 @@
                         Recommendations
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><router-link to="/weather" class="card-link">Random</router-link></li>
+                            <li class="list-group-item"><router-link to="/random" class="card-link">Random</router-link></li>
                             <li class="list-group-item"><router-link to="/weather" class="card-link">Weather</router-link></li>
                             <!--
                                 <li class="list-group-item"><a href="#/genre" class="card-link">Genre</a></li>
