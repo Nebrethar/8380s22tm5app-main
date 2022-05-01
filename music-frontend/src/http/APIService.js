@@ -16,12 +16,13 @@ export class APIService {
 
     authenticateSignup(signupcreds) {
         const url = `${API_URL}api/signup/`;
-        const logFormData = new FormData();
-        logFormData.append("first_name", signupcreds.first_name);
-        logFormData.append("last_name", signupcreds.last_name);
-        logFormData.append("email", signupcreds.email);
-        logFormData.append("username", signupcreds.username);
-        logFormData.append("password", signupcreds.password);
-        return axios.post(url,logFormData);
+        return axios.post(url,{
+            "username": signupcreds.username,
+            "password": signupcreds.password,
+            "first_name": signupcreds.first_name,
+            "last_name": signupcreds.last_name,
+            "email": signupcreds.email,
+
+        });
     }
 }

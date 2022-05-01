@@ -323,6 +323,25 @@ def authentication(request, format=None):
     }
     return Response(content)
 
+def signup(request):
+    username = str(request.get_full_path).split("username=",1)[1].split("&password",1)[0]
+    password = str(request.get_full_path).split("password=",1)[1].split("&email",1)[0]
+    email = str(request.get_full_path).split("email=",1)[1].split("&first_name",1)[0]
+    first_name = str(request.get_full_path).split("first_name=",1)[1].split("&last_name",1)[0]
+    last_name = str(request.get_full_path).split("last_name=",1)[1].split("\'",1)[0]
+    user = User.objects.create_user(
+        username=username,
+        password=password,
+        email=email,
+        first_name=first_name,
+        last_name=last_name)
+    print(username)
+    print(password)
+    print(email)
+    print(first_name)
+    print(last_name)
+    return JsonResponse({})
+
 """
 def youtube_store(request):
         # The user will get an authorization code. This code is used to get the
