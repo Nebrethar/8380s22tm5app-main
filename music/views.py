@@ -10,6 +10,9 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework import authentication
 from rest_framework import exceptions
 from django.core import serializers
+from django.forms.models import model_to_dict
+from rest_framework.response import Response
+from rest_framework import status
 import requests
 import json
 import os
@@ -105,6 +108,35 @@ def post_twitter(request):
     #request.session["state"] = oauth2.state
     request.session["oauth2"] = oauth2._client.code_verifier
     return redirect(result)
+
+def user_get(request, username):
+    if User.objects.filter(username=username).exists():
+        users = User.objects.get(username=username)
+        users_ready = model_to_dict(users)
+        #users_finish = json.dumps(users_ready)
+        #print(users_finish)
+        return JsonResponse(users_ready, safe=False)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+
+def user_update(request):
+    username = str(request.get_full_path).split("username=",1)[1].split("&email",1)[0]
+    email = str(request.get_full_path).split("email=",1)[1].split("&first_name",1)[0]
+    first_name = str(request.get_full_path).split("first_name=",1)[1].split("&last_name",1)[0]
+    last_name = str(request.get_full_path).split("last_name=",1)[1].split("\'",1)[0]
+    print(username)
+    if User.objects.filter(username=username).exists():
+        ud = User.objects.get(username=username)
+        ud.username = username
+        ud.email = email
+        ud.first_name = first_name
+        ud.last_name = last_name
+        ud.save()
+        users_ready = model_to_dict(ud)
+        #users_finish = json.dumps(users_ready)
+        return JsonResponse(users_ready, safe=False)
+    else:
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
     """
     print(dir(result))
