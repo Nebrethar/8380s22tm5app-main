@@ -145,6 +145,12 @@ export default {
     window.addEventListener('popstate', function(event) {
       window.location.href = "/"
     });
+    console.log("HREF:" + window.location.href)
+    console.log(window.location.href.includes("state="))
+    if (window.location.href.includes("state=")) {
+      alert("Thanks for posting! \n(No posts were actually \n made on your behalf)")
+      window.location.href = "/"
+    }
     //console.log("Setting tair to " + localStorage.getItem('isAuthenticates'))
     var log=this.checkLog()
     //console.log("tair at render: " + log)
