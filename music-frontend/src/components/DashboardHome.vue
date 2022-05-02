@@ -345,8 +345,8 @@ export default {
     //console.log("tair at render: " + log)
     this.isFetching = true;
     this.$forceUpdate();
-    this.getRandomSong();
-    this.getWeatherSong()
+    this.getRandomSongNoStore();
+    this.getWeatherSongNoStore()
   }
 }
 </script>
