@@ -42,13 +42,11 @@ export class APIService {
 
     getWeather(zipCode) {
         const url = `${API_URL}weather-song/` + zipCode + '/?username=' + localStorage.getItem('log_user');
-        console.log(axios.get(url));
         return axios.get(url);
     }
 
     getWeatherNoStore(zipCode) {
         const url = `${API_URL}weather-song/` + zipCode + '/?nostore=true';
-        console.log(axios.get(url));
         return axios.get(url);
     }
 }
