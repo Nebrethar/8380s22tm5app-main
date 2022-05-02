@@ -25,7 +25,15 @@ export class APIService {
     }
 
     getRandom() {
-        const url = `${API_URL}random-song/`;
+        const url = `${API_URL}random-song/?username=` + localStorage.getItem('log_user');
+        let bearerToken = localStorage.getItem('token');
+        console.log(":::bearerToken:::::"+bearerToken);
+        const headers = {Authorization: `Bearer ${bearerToken}`};
+        return axios.get(url, {headers: {Authorization: `Bearer ${bearerToken}`}});
+    }
+
+    getRandomNoStore() {
+        const url = `${API_URL}random-song/?nostore=true`;
         let bearerToken = localStorage.getItem('token');
         console.log(":::bearerToken:::::"+bearerToken);
         const headers = {Authorization: `Bearer ${bearerToken}`};

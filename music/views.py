@@ -14,6 +14,7 @@ from django.forms.models import model_to_dict
 from rest_framework.response import Response
 from rest_framework import status
 import requests
+import urllib.parse
 import json
 import os
 import sys
@@ -208,7 +209,7 @@ def post_facebook(request):
 def random_song(request):
     hd = str(request.headers)
     if "username" in request.get_full_path():
-        username = str(request.get_full_path).split("username=",1)[1].split("\'",1)[0]
+        username = urllib.parse.unquote(str(request.get_full_path).split("username=",1)[1].split("\'",1)[0])
     else:
         username = "instructor"
     print("USERNAME: " + username)
@@ -240,17 +241,17 @@ def random_song(request):
         #print(request.session['yt_link'])
 
         #print(dir(PlaylistModel))
-
-        plst = PlaylistModel(
-        playlist_name="History",
-        song=request.session['last_random_track'],
-        artist=request.session['last_random_artist'],
-        album=request.session['last_random_album'],
-        yt_link=request.session['yt_link'],
-        sf_link=request.session['last_random_URL'],
-        source="Random",
-        username=username)
-        plst.save()
+        if "nostore=true" not in request.get_full_path():
+            plst = PlaylistModel(
+            playlist_name="History",
+            song=request.session['last_random_track'],
+            artist=request.session['last_random_artist'],
+            album=request.session['last_random_album'],
+            yt_link=request.session['yt_link'],
+            sf_link=request.session['last_random_URL'],
+            source="Random",
+            username=username)
+            plst.save()
 
         response = JsonResponse(URI)
     else:
@@ -260,7 +261,7 @@ def random_song(request):
 def weather_song(request, zipcode):
     hd = str(request.headers)
     if "username" in request.get_full_path():
-        username = str(request.get_full_path).split("username=",1)[1].split("\'",1)[0]
+        username = urllib.parse.unquote(str(request.get_full_path).split("username=",1)[1].split("\'",1)[0])
     else:
         username = "instructor"
     if "Authorization" in hd:
@@ -317,15 +318,16 @@ def weather_song(request, zipcode):
         request.session['yt_link'] = customSearch.result()['result'][0]['link']        
         resp.update({"youtube": request.session['yt_link']})
 
-        plst = PlaylistModel(playlist_name="History",
-        song=request.session['last_weather_track'],
-        artist=request.session['last_weather_artist'],
-        album=request.session['last_weather_album'],
-        yt_link=request.session['yt_link'],
-        sf_link=request.session['last_weather_URL'],
-        source="Weather",
-        username=username)
-        plst.save()
+        if "nostore=true" not in request.get_full_path():
+            plst = PlaylistModel(playlist_name="History",
+            song=request.session['last_weather_track'],
+            artist=request.session['last_weather_artist'],
+            album=request.session['last_weather_album'],
+            yt_link=request.session['yt_link'],
+            sf_link=request.session['last_weather_URL'],
+            source="Weather",
+            username=username)
+            plst.save()
 
         response = JsonResponse(resp)
     else:
