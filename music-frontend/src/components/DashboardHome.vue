@@ -14,20 +14,126 @@
         <div class="container-fluid">
             <div class="row align-items-center justify-content-center">
                     <h1><b>Welcome {{ this.useru }}!</b></h1><br><br>
-                <div class="card-group" style="width:1250px; height:200px;">
+                <div v-if="this.weather == 'Clear'" class="card-group" style="width:900px; height:200px;">
                     <!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>-->
                     <div class="card">
                         <div class="card-body text-black">
-                            <h2 class="card-title"><img :src="require('@/static/assets/sun-icon.png')" style="height: 10rem; width: 10rem;">&nbsp;&nbsp;75&#176;</h2>
+                            <h2 class="card-title">
+                              <img :src="require('@/static/assets/sun-icon.png')" style="height: 10rem; width: 10rem;">
+                              <!--&nbsp;&nbsp;75&#176;-->
+                            </h2>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body text-black" style="padding-top:4em">
-                            <h5 class="card-title"><img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;"> Now Playing: Enemy x Imagine Dragons</h5>
-                            This weather calls for a sunny playlist!
+                            <h5 class="card-title">
+                              <img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;">
+                              {{ weatherSong }} x {{ weatherArtist }}
+                            </h5>
+                            <div>Clear skies call for some classy music.</div>
                         </div>
                     </div>
                 </div>
+                <div v-else-if="this.weather == 'Thunderstorm'" class="card-group" style="width:900px; height:200px;">
+                  <!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>-->
+                    <div class="card">
+                        <div class="card-body text-black">
+                            <h2 class="card-title">
+                                <img :src="require('@/static/assets/storm-cloud-icon.png')" style="height: 10rem; width: 10rem;">
+                                <!--&nbsp;&nbsp;75&#176;-->
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body text-black" style="padding-top:4em">
+                        <h5 class="card-title">
+                            <img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;">
+                            {{ weatherSong }} x {{ weatherArtist }}
+                        </h5>
+                      <div >Here's what the storm brewed up.</div>
+                    </div>
+                  </div>
+                </div>
+              <div v-else-if="this.weather == 'Drizzle'" class="card-group" style="width:900px; height:200px;">
+                <!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>-->
+                <div class="card">
+                  <div class="card-body text-black">
+                    <h2 class="card-title">
+                      <img :src="require('@/static/assets/rain-icon.png')" style="height: 10rem; width: 10rem;">
+                      <!--&nbsp;&nbsp;75&#176;-->
+                    </h2>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body text-black" style="padding-top:4em">
+                    <h5 class="card-title">
+                      <img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;">
+                      {{ weatherSong }} x {{ weatherArtist }}
+                    </h5>
+                    <div>Save this for a rainy day.</div>
+                  </div>
+                </div>
+              </div>
+              <div v-else-if="this.weather == 'Snow'" class="card-group" style="width:900px; height:200px;">
+                <!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>-->
+                <div class="card">
+                  <div class="card-body text-black">
+                    <h2 class="card-title">
+                      <img :src="require('@/static/assets/snow-icon.png')" style="height: 10rem; width: 10rem;">
+                      <!--&nbsp;&nbsp;75&#176;-->
+                    </h2>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body text-black" style="padding-top:4em">
+                    <h5 class="card-title">
+                      <img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;">
+                      {{ weatherSong }} x {{ weatherArtist }}
+                    </h5>
+                    <div>When the weather outside is frightful, listen to this.</div>
+                  </div>
+                </div>
+              </div>
+              <div v-else-if="this.weather == 'Clouds'" class="card-group" style="width:900px; height:200px;">
+                <!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>-->
+                <div class="card">
+                  <div class="card-body text-black">
+                    <h2 class="card-title">
+                      <img :src="require('@/static/assets/clouds-icon.jpeg')" style="height: 10rem; width: 10rem;">
+                      <!--&nbsp;&nbsp;75&#176;-->
+                    </h2>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body text-black" style="padding-top:4em">
+                    <h5 class="card-title">
+                      <img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;">
+                      {{ weatherSong }} x {{ weatherArtist }}
+                    </h5>
+                    <div>Music for a cloudy day.</div>
+                  </div>
+                </div>
+              </div>
+              <div v-else-if="this.weather == 'Mist'" class="card-group" style="width:900px; height:200px;">
+                <!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>-->
+                <div class="card">
+                  <div class="card-body text-black">
+                    <h2 class="card-title">
+                      <img :src="require('@/static/assets/mist-icon.jpeg')" style="height: 10rem; width: 10rem;">
+                      <!--&nbsp;&nbsp;75&#176;-->
+                    </h2>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body text-black" style="padding-top:4em">
+                    <h5 class="card-title">
+                      <img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;">
+                      {{ weatherSong }} x {{ weatherArtist }}
+                    </h5>
+                    <div>Music in the mist.</div>
+                  </div>
+                </div>
+              </div>
             </div>
             <br>
             <div class="row align-items-center justify-content-center text-black">
@@ -37,8 +143,11 @@
                             Your Playlists
                         </div>
                         <ul class="list-group list-group-flush">
-                            
-                            <li class="list-group-item" style="padding-top:0.6em"><router-link to="/" class="card-link"><img :src="require('@/static/assets/heart-fill.svg')" style="height: 1rem; width: 1rem;"><br>Recommendation<br>History</router-link></li>
+                          <li class="list-group-item" style="padding-top:0.6em">
+                            <router-link to="/" class="card-link">
+                              <img :src="require('@/static/assets/heart-fill.svg')" style="height: 1rem; width: 1rem;">
+                              <br>Recommendation<br>History
+                            </router-link></li>
                         </ul>
                     </div>
                     <div class="card">
@@ -61,7 +170,7 @@
             <div class="row align-items-center justify-content-center text-black">
                 <div class="card" style="width:1000px">
                   <h2 class="card-title" style="padding-top:20px; padding-bottom:0px">
-                    Random Music Video: {{ song }} x {{ artist }}
+                    Random Music Video: {{ randomSong }} x {{ randomArtist }}
                   </h2>
                   <iframe
                       id="loggedInMusicVideo" width="975" height="500" style="padding:0px 20px 20px 20px"
@@ -100,7 +209,7 @@
             <div class="row align-items-center justify-content-center" style="margin-top:30px">
                 <div class="card" style="width:1000px">
                     <h2 class="card-title" style="padding-top:20px; padding-bottom:0px">
-                      Random Music Video: {{ song }} x {{ artist }}
+                      Random Music Video: {{ randomSong }} x {{ randomArtist }}
                     </h2>
                     <iframe
                         id="loggedOutMusicVideo" width="975" height="500" style="padding:0px 20px 20px 20px"
@@ -133,8 +242,11 @@ export default {
       isFetching: true,
       useru: "",
       youtubeID: "",
-      song: "",
-      artist: "",
+      randomSong: "",
+      randomArtist: "",
+      weatherSong: "",
+      weatherArtist: "",
+      weather: ""
     }
   },
   methods: {
@@ -151,11 +263,11 @@ export default {
       //this.$forceUpdate();
       return this.tair
     },
-    getRecommendation() {
+    getRandomSong() {
       apiService.getRandom().then(response => {
         this.youtubeID = response.data.youtube.split("=")[1];
-        this.song = response.data.tracks.items[0].name;
-        this.artist = response.data.tracks.items[0].album.artists[0].name;
+        this.randomSong = response.data.tracks.items[0].name;
+        this.randomArtist = response.data.tracks.items[0].album.artists[0].name;
         if (localStorage.getItem("isAuthenticates")
             && JSON.parse(localStorage.getItem("isAuthenticates")) === true) {
           document.getElementById("loggedInMusicVideo").src = "https://www.youtube.com/embed/" + this.youtubeID;
@@ -163,6 +275,20 @@ export default {
         else {
           document.getElementById("loggedOutMusicVideo").src = "https://www.youtube.com/embed/" + this.youtubeID;
         }
+      }).catch(error => {
+        if (error.response.status === 401) {
+          localStorage.removeItem('isAuthenticates');
+          localStorage.removeItem('log_user');
+          localStorage.removeItem('token');
+          router.push("/auth");
+        }
+      });
+    },
+    getWeatherSong() {
+      apiService.getWeather("68124").then(response => {
+        this.weatherSong = response.data.tracks.items[0].name;
+        this.weatherArtist = response.data.tracks.items[0].album.artists[0].name;
+        this.weather = response.data.weather;
       }).catch(error => {
         if (error.response.status === 401) {
           localStorage.removeItem('isAuthenticates');
@@ -184,7 +310,8 @@ export default {
     //console.log("tair at render: " + log)
     this.isFetching = true;
     this.$forceUpdate();
-    this.getRecommendation();
+    this.getRandomSong();
+    this.getWeatherSong()
   }
 }
 </script>

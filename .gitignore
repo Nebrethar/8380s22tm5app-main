@@ -3,3 +3,4 @@ node_modules/
 staticfiles
 *.pyc
 music/client_secret.json
+.DS_Store

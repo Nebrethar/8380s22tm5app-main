@@ -24,11 +24,17 @@ export class APIService {
         return axios.get(url)
     }
 
-    getRandom(param_pk) {
+    getRandom() {
         const url = `${API_URL}random-song/`;
         let bearerToken = localStorage.getItem('token');
         console.log(":::bearerToken:::::"+bearerToken);
         const headers = {Authorization: `Bearer ${bearerToken}`};
         return axios.get(url, {headers: {Authorization: `Bearer ${bearerToken}`}});
+    }
+
+    getWeather(zipCode) {
+        const url = `${API_URL}weather-song/` + zipCode + '/';
+        console.log(axios.get(url));
+        return axios.get(url);
     }
 }

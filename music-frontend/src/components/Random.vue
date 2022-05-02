@@ -15,13 +15,13 @@
     <div class="row align-items-center justify-content-center">
       <div class="card-group" style="width:900px">
         <div class="col-lg-4">
-          <div class="btn py-2" id="twitterButton">Share on Twitter</div>
+          <a class="btn py-2" id="twitterButton" href="https://8380s22tm5app.com/twitter-post/">Share on Twitter</a>
         </div>
         <div class="col-lg-4" style="visibility:hidden">
           <div class="btn py-2" id="facebookButton">Post on Facebook</div>
         </div>
         <div class="col-lg-4">
-          <div class="btn btn-dark py-2" id="facebookButton">Post on Facebook</div>
+          <a class="btn btn-dark py-2" id="facebookButton" href="https://8380s22tm5app.com/facebook-post/">Post on Facebook</a>
         </div>
       </div>
     </div>
