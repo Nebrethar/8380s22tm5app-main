@@ -144,7 +144,7 @@
                         </div>
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item" style="padding-top:0.6em">
-                            <router-link to="/" class="card-link">
+                            <router-link to="/history" class="card-link">
                               <img :src="require('@/static/assets/heart-fill.svg')" style="height: 1rem; width: 1rem;">
                               <br>Recommendation<br>History
                             </router-link></li>
