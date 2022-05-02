@@ -95,7 +95,7 @@ def post_twitter(request):
         client_id = os.getenv('twitter_client_key'),
         client_secret = os.getenv('twitter_client_secret'),
         scope="tweet.write",
-        redirect_uri = "https://stately-granita-d9d023.netlify.app/social-post/"
+        redirect_uri = "https://stately-granita-d9d023.netlify.app/"
     )
     #URI = {}
     result = oauth2.get_authorization_url()
@@ -202,7 +202,7 @@ def flow_twitter(request):
 """
 
 def post_facebook(request):
-    return redirect("https://www.facebook.com/v13.0/dialog/oauth?client_id=" + os.getenv('fb_client_id') + "&redirect_uri=https%3A%2F%2Fstately-granita-d9d023.netlify.app%2Fsocial-post%2F&state={\"{st=state123abc,ds=123456789}\"})")
+    return redirect("https://www.facebook.com/v13.0/dialog/oauth?client_id=" + os.getenv('fb_client_id') + "&redirect_uri=https%3A%2F%2Fstately-granita-d9d023.netlify.app%2F&state={\"{st=state123abc,ds=123456789}\"})")
 
 @permission_classes((IsAuthenticated, ))
 def random_song(request):
