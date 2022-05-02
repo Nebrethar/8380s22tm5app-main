@@ -209,7 +209,8 @@ def post_facebook(request):
 def random_song(request):
     hd = str(request.headers)
     if "username" in request.get_full_path():
-        username = urllib.parse.unquote(str(request.get_full_path).split("username=",1)[1].split("\'",1)[0])
+        usernamept = urllib.parse.unquote(str(request.get_full_path).split("username=",1)[1].split("\'",1)[0])
+        username = usernamept.replace("\"", "")
     else:
         username = "instructor"
     print("USERNAME: " + username)
@@ -261,7 +262,8 @@ def random_song(request):
 def weather_song(request, zipcode):
     hd = str(request.headers)
     if "username" in request.get_full_path():
-        username = urllib.parse.unquote(str(request.get_full_path).split("username=",1)[1].split("\'",1)[0])
+        usernamept = urllib.parse.unquote(str(request.get_full_path).split("username=",1)[1].split("\'",1)[0])
+        username = usernamept.replace("\"", "")
     else:
         username = "instructor"
     if "Authorization" in hd:

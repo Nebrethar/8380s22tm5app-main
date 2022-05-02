@@ -284,8 +284,43 @@ export default {
         }
       });
     },
+    getRandomSongNoStore() {
+      apiService.getRandomNoStore().then(response => {
+        this.youtubeID = response.data.youtube.split("=")[1];
+        this.randomSong = response.data.tracks.items[0].name;
+        this.randomArtist = response.data.tracks.items[0].album.artists[0].name;
+        if (localStorage.getItem("isAuthenticates")
+            && JSON.parse(localStorage.getItem("isAuthenticates")) === true) {
+          document.getElementById("loggedInMusicVideo").src = "https://www.youtube.com/embed/" + this.youtubeID;
+        }
+        else {
+          document.getElementById("loggedOutMusicVideo").src = "https://www.youtube.com/embed/" + this.youtubeID;
+        }
+      }).catch(error => {
+        if (error.response.status === 401) {
+          localStorage.removeItem('isAuthenticates');
+          localStorage.removeItem('log_user');
+          localStorage.removeItem('token');
+          router.push("/auth");
+        }
+      });
+    },
     getWeatherSong() {
       apiService.getWeather("68124").then(response => {
+        this.weatherSong = response.data.tracks.items[0].name;
+        this.weatherArtist = response.data.tracks.items[0].album.artists[0].name;
+        this.weather = response.data.weather;
+      }).catch(error => {
+        if (error.response.status === 401) {
+          localStorage.removeItem('isAuthenticates');
+          localStorage.removeItem('log_user');
+          localStorage.removeItem('token');
+          router.push("/auth");
+        }
+      });
+    },
+    getWeatherSongNoStore() {
+      apiService.getWeatherNoStore("68124").then(response => {
         this.weatherSong = response.data.tracks.items[0].name;
         this.weatherArtist = response.data.tracks.items[0].album.artists[0].name;
         this.weather = response.data.weather;
