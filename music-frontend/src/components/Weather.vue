@@ -65,10 +65,12 @@ export default {
     youtubeID: "",
     song: "",
     artist: "",
+    zip: "",
   }),
   methods: {
     getRecommendation() {
-      apiService.getWeather("68124").then(response => {
+      console.log("ZIPCODE: " + this.zip)
+      apiService.getWeather(this.zip).then(response => {
         this.weather = response.data.weather;
         this.youtubeID = response.data.youtube.split("=")[1];
         this.song = response.data.tracks.items[0].name;
@@ -89,6 +91,7 @@ export default {
     },
   },
   mounted: function () {
+    this.zip = localStorage.getItem("zipcode")
     this.getRecommendation();
     history.pushState(
         {},

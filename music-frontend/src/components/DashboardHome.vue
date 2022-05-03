@@ -156,7 +156,10 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><router-link to="/random" class="card-link">Random</router-link></li>
-                            <li class="list-group-item"><router-link to="/weather" class="card-link">Weather</router-link></li>
+                            <li class="list-group-item" style="display:flex; align-items:center; justify-content: center;">
+                              <input id="zip" style="width:30%;" type="text" class="form-control card-link" placeholder="Zipcode" v-model="zip">
+                              <a @click="zipcode()" class="card-link" style="padding-top: 0.5em; text-align:center;">Weather</a>
+                            </li>
                             <!--
                                 <li class="list-group-item"><a href="#/genre" class="card-link">Genre</a></li>
                                 <li class="list-group-item"><a href="#/random" class="card-link">Random</a></li>
@@ -246,7 +249,8 @@ export default {
       randomArtist: "",
       weatherSong: "",
       weatherArtist: "",
-      weather: ""
+      weather: "",
+      zip: ""
     }
   },
   methods: {
@@ -306,7 +310,7 @@ export default {
       });
     },
     getWeatherSong() {
-      apiService.getWeather("68124").then(response => {
+      apiService.getWeather(this.zip).then(response => {
         this.weatherSong = response.data.tracks.items[0].name;
         this.weatherArtist = response.data.tracks.items[0].album.artists[0].name;
         this.weather = response.data.weather;
@@ -333,6 +337,25 @@ export default {
         }
       });
     },
+    zipcode() {
+      console.log("TEST")
+      var ziptest = /^\d+$/.test(this.zip)
+      console.log(ziptest)
+      if (this.zip.length < 5 || !ziptest) {
+        alert("Zipcode format is incorrect")
+      } else {
+        console.log("PARSE")
+        var parse = parseInt(this.zip)
+        console.log(parse)
+        if (parse <= 500 || parse >= 99951) {
+          alert("Please enter a valid zipcode")
+        } else {
+          localStorage.setItem("zipcode", this.zip)
+          console.log("PREZIP: " + localStorage.getItem("zipcode"))
+          router.push("/weather")
+        }
+      }
+    }
   },
   computed: {
     doubleCheck() {
@@ -346,7 +369,7 @@ export default {
     this.isFetching = true;
     this.$forceUpdate();
     this.getRandomSongNoStore();
-    this.getWeatherSongNoStore()
+    this.getWeatherSongNoStore();
   }
 }
 </script>
