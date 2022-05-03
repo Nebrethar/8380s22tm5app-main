@@ -118,17 +118,18 @@ def user_get(request, username):
         #print(users_finish)
         return JsonResponse(users_ready, safe=False)
     else:
-        return JsonResponse({"Error": "Username exists"})
+        return JsonResponse({"Error": "Username does not exist"})
 
 def user_update(request):
-    username = str(request.get_full_path).split("username=",1)[1].split("&email",1)[0]
+    oldusername = str(request.get_full_path).split("oldusername=",1)[1].split("&newusername",1)[0]
+    newusername = str(request.get_full_path).split("newusername=",1)[1].split("&email",1)[0]
     email = str(request.get_full_path).split("email=",1)[1].split("&first_name",1)[0]
     first_name = str(request.get_full_path).split("first_name=",1)[1].split("&last_name",1)[0]
     last_name = str(request.get_full_path).split("last_name=",1)[1].split("\'",1)[0]
-    print(username)
-    if User.objects.filter(username=username).exists():
-        ud = User.objects.get(username=username)
-        ud.username = username
+    PlaylistModel.objects.filter(username=oldusername).update(username=newusername)
+    if User.objects.filter(username=oldusername).exists():
+        ud = User.objects.get(username=oldusername)
+        ud.username = newusername
         ud.email = email
         ud.first_name = first_name
         ud.last_name = last_name
@@ -137,7 +138,7 @@ def user_update(request):
         #users_finish = json.dumps(users_ready)
         return JsonResponse(users_ready, safe=False)
     else:
-        return JsonResponse({"Error": "Username exists"})
+        return JsonResponse({"Error": "Username does not exist"})
 
     """
     print(dir(result))
