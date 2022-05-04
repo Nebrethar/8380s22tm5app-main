@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     login() {
-      console.log("Logging in!");
+      //console.log("Logging in!");
     },
     logout() {
       //console.log("Logging out!");
@@ -131,7 +131,7 @@ export default {
     checkLog() {
       //console.log("Local storage: " + localStorage.getItem('isAuthenticates'));
       this.tair = localStorage.getItem('isAuthenticates')
-      this.useru = localStorage.getItem('log_user').replace(/"/g,"")
+      this.useru = localStorage.getItem('log_user')//.replace(/"/g,"")
       console.log("Setting tair to: " + this.tair)
       this.$forceUpdate();
       return this.tair

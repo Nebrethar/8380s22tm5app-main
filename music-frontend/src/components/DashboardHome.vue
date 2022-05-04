@@ -262,7 +262,7 @@ export default {
     checkLog() {
       console.log("Local storage: " + localStorage.getItem('isAuthenticates'));
       this.tair = localStorage.getItem('isAuthenticates')
-      this.useru = localStorage.getItem('log_user').replace(/"/g,"")
+      this.useru = localStorage.getItem('log_user')//.replace(/"/g,"")
       console.log("tair is: " + this.tair)
       //this.$forceUpdate();
       return this.tair
