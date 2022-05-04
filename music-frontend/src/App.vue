@@ -132,6 +132,10 @@ export default {
       //console.log("Local storage: " + localStorage.getItem('isAuthenticates'));
       this.tair = localStorage.getItem('isAuthenticates')
       this.useru = localStorage.getItem('log_user')//.replace(/"/g,"")
+      if (this.useru.includes("\"")) {
+        console.log("PULLING QUOTES")
+        this.useru = this.useru.replace(/"/g,"")
+      }
       console.log("Setting tair to: " + this.tair)
       this.$forceUpdate();
       return this.tair
