@@ -56,6 +56,11 @@ def get_playlists(request):
     print(allvals)
     return JsonResponse(json.loads(allvals), safe=False)
 
+def get_user_playlists(request, username):
+    allvals = serializers.serialize("json", PlaylistModel.objects.filter(username=username))
+    print(allvals)
+    return JsonResponse(json.loads(allvals), safe=False)
+
 def youtube_get(request, artist, song):
     customSearch = CustomSearch(artist + " " + song, "", limit = 1)
     link = customSearch.result()['result'][0]['link']

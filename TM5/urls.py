@@ -24,6 +24,7 @@ urlpatterns = [
     #path('youtube-store/', views.youtube_store),
     path('get-youtube/<artist>/<song>/', views.youtube_get),
     path('get-playlists/', views.get_playlists),
+    path('get-playlists/<username>/', views.get_user_playlists),
     path('facebook-post/', views.post_facebook),
     path('twitter-post/', views.post_twitter),
     #path('twitter-flow/', views.flow_twitter),
