@@ -22,7 +22,7 @@ export class APIService {
     updateUser(updatecreds) {
         const url = `${API_URL}user/update/?oldusername=` + localStorage.getItem('log_user') + "&newusername=" + updatecreds.username + "&email=" + updatecreds.email + "&first_name=" + updatecreds.first_name  + "&last_name=" + updatecreds.last_name;
         localStorage.setItem('log_user', updatecreds.username)
-        return axios.post(url, {})
+        return axios.get(url, {})
     }
 
     getUser(username) {
