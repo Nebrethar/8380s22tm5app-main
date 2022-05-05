@@ -4,7 +4,8 @@
     <div  class="text-white">
         <!-- Welcome Text -->
         <h1 class="py-sm-5 masthead-heading mb-0" ><b>History</b></h1>
-        <table class="table table-sm">
+        <table class="table table-secondary table-sm" style="width:70%; border: 1px solid black;margin-left:auto; margin-right:auto;">
+          <thead>
             <tr>
               <th scope="col">Song</th>
               <th scope="col">Artist</th>
@@ -12,6 +13,7 @@
               <th scope="col">Spotify Link</th>
               <th scope="col">Youtube Link</th>
             </tr>
+          </thead>
             <tbody>
             <tr v-for = "song in songs" v-bind:key="song">
               <th scope="row">{{song.fields.song}}</th>
