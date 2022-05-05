@@ -5,7 +5,8 @@
         <!-- Welcome Text -->
         <h1 class="py-sm-5 masthead-heading mb-0" ><b>History</b></h1>
         <h3>Recent Recommendations for {{this.useru}}</h3>
-        <table class="table table-secondary table-sm" style="width:70%; border: 1px solid black;margin-left:auto; margin-right:auto;">
+        <h5>(in descending order)</h5><br>
+        <table class="table table-secondary table-sm" style="width:70%; border: 2px solid black;margin-left:auto; margin-right:auto;">
           <thead>
             <tr>
               <th scope="col">Song</th>
@@ -16,7 +17,7 @@
             </tr>
           </thead>
             <tbody>
-            <tr v-for = "song in songs" v-bind:key="song">
+            <tr v-for = "song in songs.slice().reverse()" v-bind:key="song">
               <th scope="row">{{song.fields.song}}</th>
               <td>{{song.fields.artist}}</td>
               <td>{{song.fields.source}}</td>

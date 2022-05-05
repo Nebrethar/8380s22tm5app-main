@@ -1986,7 +1986,7 @@ progress {
   vertical-align: bottom;
 }
 .table > :not(:first-child) {
-  border-top: 0.25rem solid currentColor;
+  border-top: 0.25rem solid black;
 }
 
 .caption-top {
