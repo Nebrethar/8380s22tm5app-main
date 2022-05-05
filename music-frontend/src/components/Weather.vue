@@ -12,6 +12,9 @@
       <h2>This storm brewed up:</h2>
     </div>
     <div v-else-if="this.weather == 'Drizzle'" class="row align-items-center justify-content-center">
+      <h2>A song for some gloomy weather:</h2>
+    </div>
+    <div v-else-if="this.weather == 'Rain'" class="row align-items-center justify-content-center">
       <h2>Save this for a rainy day:</h2>
     </div>
     <div v-else-if="this.weather == 'Snow'" class="row align-items-center justify-content-center">
@@ -80,6 +83,7 @@ export default {
             && JSON.parse(localStorage.getItem("isAuthenticates")) === true) {
           this.validUserName = JSON.parse(localStorage.getItem("log_user"));
         }
+        console.log(this.weather)
       }).catch(error => {
         if (error.response.status === 401) {
           localStorage.removeItem('isAuthenticates');

@@ -70,6 +70,26 @@
                       <img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;">
                       {{ weatherSong }} x {{ weatherArtist }}
                     </h5>
+                    <div>A song for some gloomy weather.</div>
+                  </div>
+                </div>
+              </div>
+              <div v-else-if="this.weather == 'Rain'" class="card-group" style="width:900px; height:200px;">
+                <!--<a @click="viewCustomers" class="btn btn-dark">User Preferences</a>&nbsp;</h1>-->
+                <div class="card">
+                  <div class="card-body text-black">
+                    <h2 class="card-title">
+                      <img :src="require('@/static/assets/rain-icon.png')" style="height: 10rem; width: 10rem;">
+                      <!--&nbsp;&nbsp;75&#176;-->
+                    </h2>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body text-black" style="padding-top:4em">
+                    <h5 class="card-title">
+                      <img :src="require('@/static/assets/music-icon.png')" style="height: 2rem; width: 2rem;">
+                      {{ weatherSong }} x {{ weatherArtist }}
+                    </h5>
                     <div>Save this for a rainy day.</div>
                   </div>
                 </div>
