@@ -53,15 +53,15 @@ scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
 def get_playlists(request):
     allvals = serializers.serialize("json", PlaylistModel.objects.all())
-    print(allvals)
+    #print(allvals)
     return JsonResponse(json.loads(allvals), safe=False)
 
 def get_user_playlists(request, username):
-    print(username)
+    #print(username)
     useruq=urllib.parse.unquote(username).replace("\"", "")
-    print(useruq)
+    #print(useruq)
     allvals = serializers.serialize("json", PlaylistModel.objects.filter(username=useruq))
-    print(allvals)
+    #print(allvals)
     return JsonResponse(json.loads(allvals), safe=False)
 
 def youtube_get(request, artist, song):
@@ -129,8 +129,8 @@ def user_get(request, username):
         return JsonResponse({"Error": "Username does not exist"})
 
 def user_update(request):
-    oldusername = str(request.get_full_path).split("oldusername=",1)[1].split("&newusername",1)[0]
-    newusername = str(request.get_full_path).split("newusername=",1)[1].split("&email",1)[0]
+    oldusername = urllib.parse.unquote(str(request.get_full_path).split("oldusername=",1)[1].split("&newusername",1)[0]).replace("\"", "")
+    newusername = urllib.parse.unquote(str(request.get_full_path).split("newusername=",1)[1].split("&email",1)[0]).replace("\"", "")
     email = str(request.get_full_path).split("email=",1)[1].split("&first_name",1)[0]
     first_name = str(request.get_full_path).split("first_name=",1)[1].split("&last_name",1)[0]
     last_name = str(request.get_full_path).split("last_name=",1)[1].split("\'",1)[0]

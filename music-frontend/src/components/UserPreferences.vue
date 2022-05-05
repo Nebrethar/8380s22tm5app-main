@@ -77,6 +77,7 @@ export default {
       })
     },
     onSubmit: function() {
+      console.log("PREFS")
       console.log(this.userPreferences);
       apiService.updateUser(this.userPreferences);
     }
