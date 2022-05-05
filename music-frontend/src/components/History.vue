@@ -58,7 +58,7 @@ export default {
       return this.tair
     },
     getHistory() {
-      apiService.getPlaylists().then(response => {
+      apiService.getUserPlaylists().then(response => {
         this.songs = response.data;
       }).catch(error => {
         if (error.response.status === 401) {

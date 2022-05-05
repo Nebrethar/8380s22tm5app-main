@@ -35,6 +35,11 @@ export class APIService {
         return axios.get(url)
     }
 
+    getUserPlaylists() {
+        const url = `${API_URL}get-playlists/` + localStorage.getItem('log_user') + "/";
+        return axios.get(url)
+    }
+
     getRandom() {
         const url = `${API_URL}random-song/?username=` + localStorage.getItem('log_user');
         let bearerToken = localStorage.getItem('token');

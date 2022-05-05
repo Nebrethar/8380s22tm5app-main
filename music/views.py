@@ -57,7 +57,10 @@ def get_playlists(request):
     return JsonResponse(json.loads(allvals), safe=False)
 
 def get_user_playlists(request, username):
-    allvals = serializers.serialize("json", PlaylistModel.objects.filter(username=username))
+    print(username)
+    useruq=urllib.parse.unquote(username).replace("\"", "")
+    print(useruq)
+    allvals = serializers.serialize("json", PlaylistModel.objects.filter(username=useruq))
     print(allvals)
     return JsonResponse(json.loads(allvals), safe=False)
 
