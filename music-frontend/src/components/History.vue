@@ -14,11 +14,11 @@
             </tr>
             <tbody>
             <tr v-for = "song in songs" v-bind:key="song">
-              <th scope="row">{{song.song}}</th>
-              <td>{{song.artist}}</td>
-              <td>{{song.source}}</td>
-              <td>{{song.sf_link}}</td>
-              <td>{{song.yt_link}}</td>
+              <th scope="row">{{song.fields.song}}</th>
+              <td>{{song.fields.artist}}</td>
+              <td>{{song.fields.source}}</td>
+              <td><a v-bind:href="song.fields.sf_link" style="color:blue">Listen on Spotify</a></td>
+              <td><a v-bind:href="song.fields.yt_link" style="color:blue">Watch on Youtube</a></td>
             </tr>
             </tbody>
         </table>
